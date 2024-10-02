@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/registro_bici"
-    tools:context=".fragments.SplashFragment">
+android:background="@drawable/bici"    tools:context=".fragments.SplashFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -70,6 +69,7 @@
             android:fontFamily="@font/simple_cake"
             android:text="Inicio de Sesión"
             android:textSize="60dp"
+            android:textColor="@color/colorAccent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
