@@ -12,29 +12,33 @@ android:background="@drawable/bici"    tools:context=".fragments.SplashFragment"
 
         <EditText
             android:id="@+id/txEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
-            android:layout_marginTop="248dp"
+            android:layout_width="217dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/border_edit_text"
             android:ems="10"
             android:fontFamily="@font/simple_cake"
             android:hint="Email"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             android:textColorHint="@color/azul"
+            android:paddingStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/txInicio" />
 
         <EditText
             android:id="@+id/txContraseña"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="217dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginTop="21dp"
+            android:background="@drawable/border_edit_text"
             android:ems="10"
             android:fontFamily="@font/simple_cake"
             android:hint="Contraseña"
             android:inputType="textPassword"
             android:textColorHint="@color/azul"
+            android:paddingStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txEmail" />
 
