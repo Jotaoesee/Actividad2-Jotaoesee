@@ -14,11 +14,11 @@
             android:id="@+id/txNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="93dp"
-            android:layout_marginTop="108dp"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="100dp"
             android:ems="10"
             android:inputType="text"
-            android:text="Name"
+            android:text="Nombre"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,11 +51,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="24dp"
             android:ems="10"
             android:inputType="text"
             android:text="Numero de Movil"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txEdad" />
+
+        <EditText
+            android:id="@+id/txBiografia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Biografía"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txNumero" />
+
+        <Button
+            android:id="@+id/btnCerrarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="136dp"
+            android:layout_marginTop="88dp"
+            android:text="Cerrar Sesión"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txBiografia" />
+
+        <Button
+            android:id="@+id/btnEditarPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="144dp"
+            android:layout_marginTop="24dp"
+            android:text="Editar Perfil"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txBiografia" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
