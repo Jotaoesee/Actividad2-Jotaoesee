@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bici"    tools:context=".fragments.SplashFragment">
+    android:background="@drawable/bici"
+    tools:context=".fragments.SplashFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,32 +14,32 @@
         <EditText
             android:id="@+id/txEmail"
             android:layout_width="217dp"
-            android:layout_height="38dp"
+            android:layout_height="48dp"
             android:layout_marginStart="96dp"
             android:layout_marginTop="40dp"
+            android:paddingStart="10dp"
             android:background="@drawable/border_edit_text"
             android:ems="10"
             android:fontFamily="@font/simple_cake"
             android:hint="Email"
-            android:inputType="textPassword"
+            android:inputType="textEmailAddress"
             android:textColorHint="@color/azul"
-            android:paddingStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txRegistro" />
 
         <EditText
             android:id="@+id/txContraseña"
             android:layout_width="217dp"
-            android:layout_height="38dp"
+            android:layout_height="48dp"
             android:layout_marginStart="96dp"
             android:layout_marginTop="21dp"
+            android:paddingStart="10dp"
             android:background="@drawable/border_edit_text"
             android:ems="10"
             android:fontFamily="@font/simple_cake"
             android:hint="Contraseña"
             android:inputType="textPassword"
             android:textColorHint="@color/azul"
-            android:paddingStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txEmail" />
 
