@@ -24,7 +24,7 @@
             android:textColorHint="@color/azul"
             android:paddingStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txInicio" />
+            app:layout_constraintTop_toBottomOf="@+id/txRegistro" />
 
         <EditText
             android:id="@+id/txContraseña"
@@ -65,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txContraseña" />
 
         <TextView
-            android:id="@+id/txInicio"
+            android:id="@+id/txRegistro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
