@@ -25,7 +25,6 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="168dp"
                 android:layout_marginTop="316dp"
-                android:indeterminateTint="@color/colorAccent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +35,6 @@
                 android:layout_marginStart="116dp"
                 android:layout_marginTop="212dp"
                 android:text="Cargando"
-                android:textColor="@color/colorAccent"
                 android:textSize="40dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
