@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "799690176285",
+    "project_id": "actividad1-8a436",
+    "storage_bucket": "actividad1-8a436.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799690176285:android:6419b5533ef8225e3b93f4",
+        "android_client_info": {
+          "package_name": "org.eurekamps.dam2_2425_actividad1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5b8grhCltJJMCT34Xi0nx6YL-xXTFm4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
