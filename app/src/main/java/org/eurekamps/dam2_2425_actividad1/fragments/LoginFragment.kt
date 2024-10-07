@@ -55,7 +55,4 @@ class LoginFragment : Fragment() {
         }
     }
 
-    companion object {
-
-    }
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import org.eurekamps.dam2_2425_actividad1.R
 
@@ -47,7 +48,22 @@ class RegistroFragment : Fragment() {
 
         // Aquí añado listeners o cualquier lógica de manejo de eventos
         btnRegistrar.setOnClickListener {
+            val email = txEmail.text.toString().trim()
+            val contraseña = txContraseña.text.toString().trim()
+            val confirmarContraseña = txConfirmarContraseña.text.toString().trim()
 
+            // Verificar si los campos están vacíos
+            if (email.isEmpty() || contraseña.isEmpty() || confirmarContraseña.isEmpty()) {
+                // Mostrar un mensaje de error
+                Toast.makeText(requireContext(), "Por favor, rellena todos los campos.", Toast.LENGTH_SHORT).show()
+            } else {
+                // Puedes agregar más validaciones aquí, como verificar si las contraseñas coinciden
+                if (contraseña != confirmarContraseña) {
+                    Toast.makeText(requireContext(), "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Registro exitoso", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         btnVolver.setOnClickListener {
