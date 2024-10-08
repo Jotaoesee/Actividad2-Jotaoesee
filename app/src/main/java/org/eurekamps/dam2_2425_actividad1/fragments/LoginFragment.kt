@@ -1,6 +1,7 @@
 package org.eurekamps.dam2_2425_actividad1.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import org.eurekamps.dam2_2425_actividad1.R
 
 
@@ -36,31 +40,33 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Inflar el layout del fragmento de inicio de sesión
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializar las vistas aquí
-        txEmail = view.findViewById(R.id.txEmail)
-        txContraseña = view.findViewById(R.id.txContraseña)
+        // Inicializo las vistas aquí
+        txEmail = view.findViewById(R.id.txEmailRegistro)
+        txContraseña = view.findViewById(R.id.txContraseñaRegistro)
         txInicioSesion = view.findViewById(R.id.txInicio)
         btnLogin = view.findViewById(R.id.btnLogin)
-        btnRegistrar = view.findViewById(R.id.btnRegistrar)
+        btnRegistrar = view.findViewById(R.id.btnRegistrarRegistro)
+
 
         // Listener para el botón de login
         btnLogin.setOnClickListener {
+            Log.d("LoginFragment", "Login button clicked")
             val email = txEmail.text.toString().trim()
-            val contraseña = txContraseña.text.toString().trim()
+            val contrasenia = txContraseña.text.toString().trim()
 
-            // Verificar si los campos están vacíos
-            if (email.isEmpty() || contraseña.isEmpty()) {
+            //Compruebo que los campos no esten vacios
+            if (email.isEmpty() || contrasenia.isEmpty()) {
                 Toast.makeText(requireContext(), "Por favor, rellena todos los campos.", Toast.LENGTH_SHORT).show()
             } else {
-                // Iniciar sesión con Firebase
-                iniciarSesion(email, contraseña)
+                iniciarSesion(email, contrasenia)
             }
         }
 
@@ -70,18 +76,26 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun iniciarSesion(email: String, contraseña: String) {
-        auth.signInWithEmailAndPassword(email, contraseña)
+    //Función para iniciar sesión
+    private fun iniciarSesion(email: String, contrasenia: String) {
+        auth.signInWithEmailAndPassword(email, contrasenia)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     // Inicio de sesión exitoso y navego al perfilFragment
                     Toast.makeText(requireContext(), "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_loginFragment_to_perfilFragment)
                 } else {
-                    // Si ocurre un error en el inicio de sesión
-                    Toast.makeText(requireContext(), "Error en el inicio de sesión: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    // Manejo de errores
+                    val errorMessage = when (task.exception) {
+                        is FirebaseAuthInvalidUserException -> "El correo electrónico no está registrado."
+                        is FirebaseAuthInvalidCredentialsException -> "La contraseña es incorrecta."
+                        is FirebaseAuthException -> "Error: ${task.exception?.message}"
+                        else -> "Error desconocido."
+                    }
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
     }
+
 
 }

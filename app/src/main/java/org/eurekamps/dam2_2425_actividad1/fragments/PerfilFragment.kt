@@ -14,12 +14,13 @@ import org.eurekamps.dam2_2425_actividad1.R
 
 class PerfilFragment : Fragment() {
 
-    lateinit var txEmail: EditText
-    lateinit var txContraseña: EditText
-    lateinit var txConfirmarContraseña: EditText
-    lateinit var btnVolver: Button
-    lateinit var btnRegistrar: Button
-
+    lateinit var txNombre : EditText
+    lateinit var txApellidos : EditText
+    lateinit var txEdad : EditText
+    lateinit var txNumero : EditText
+    lateinit var txBiografia : EditText
+    lateinit var btnCerrarSesion : Button
+    lateinit var btnEditarPerfil : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,37 +36,26 @@ class PerfilFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        // Inicializar las vistas aquí
-        txEmail = view.findViewById(R.id.txEmail)
-        txContraseña = view.findViewById(R.id.txContraseña)
-        txConfirmarContraseña = view.findViewById(R.id.txConfirmarContraseña)
-        btnVolver = view.findViewById(R.id.btnVolver)
-        btnRegistrar = view.findViewById(R.id.btnRegistrar)
+        txNombre = view.findViewById(R.id.txNombrePerfil)
+        txApellidos = view.findViewById(R.id.txApellidosPerfil)
+        txEdad = view.findViewById(R.id.txEdadPerfil)
+        txNumero = view.findViewById(R.id.txNumeroPerfil)
+        txBiografia = view.findViewById(R.id.txBiografiaPerfil)
+        btnCerrarSesion = view.findViewById(R.id.btnCerrarSesion)
+        btnEditarPerfil = view.findViewById(R.id.btnEditarPerfil)
 
-        // Aquí añado listeners o cualquier lógica de manejo de eventos
-        btnRegistrar.setOnClickListener {
-            val email = txEmail.text.toString().trim()
-            val contraseña = txContraseña.text.toString().trim()
-            val confirmarContraseña = txConfirmarContraseña.text.toString().trim()
 
-            // Verificar si los campos están vacíos
-            if (email.isEmpty() || contraseña.isEmpty() || confirmarContraseña.isEmpty()) {
-                // Mostrar un mensaje de error
-                Toast.makeText(requireContext(), "Por favor, rellena todos los campos.", Toast.LENGTH_SHORT).show()
-            } else {
-                // Puedes agregar más validaciones aquí, como verificar si las contraseñas coinciden
-                if (contraseña != confirmarContraseña) {
-                    Toast.makeText(requireContext(), "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "Registro exitoso", Toast.LENGTH_SHORT).show()
-                }
-            }
+        btnCerrarSesion.setOnClickListener {
+           findNavController().navigate(R.id.action_perfilFragment_to_loginFragment)
         }
 
-        btnVolver.setOnClickListener {
-            findNavController().navigate(R.id.action_registroFragment_to_loginFragment)
-        }
+       btnEditarPerfil.setOnClickListener {
+
+       }
+
+
     }
 
 }

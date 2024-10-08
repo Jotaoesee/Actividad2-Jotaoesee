@@ -20,7 +20,11 @@
         android:id="@+id/perfilFragment"
         android:name="org.eurekamps.dam2_2425_actividad1.fragments.PerfilFragment"
         android:label="fragment_perfil"
-        tools:layout="@layout/fragment_perfil" />
+        tools:layout="@layout/fragment_perfil" >
+        <action
+            android:id="@+id/action_perfilFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registroFragment"
         android:name="org.eurekamps.dam2_2425_actividad1.fragments.RegistroFragment"

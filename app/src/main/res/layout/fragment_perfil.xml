@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/txNombre"
+            android:id="@+id/txNombrePerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/txApellidos"
+            android:id="@+id/txApellidosPerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
@@ -45,10 +45,10 @@
             android:inputType="text"
             android:text="Apellidos:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txNombre" />
+            app:layout_constraintTop_toBottomOf="@+id/txNombrePerfil" />
 
         <EditText
-            android:id="@+id/txEdad"
+            android:id="@+id/txEdadPerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
@@ -63,10 +63,10 @@
             android:inputType="text"
             android:text="Edad:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txApellidos" />
+            app:layout_constraintTop_toBottomOf="@+id/txApellidosPerfil" />
 
         <EditText
-            android:id="@+id/txNumero"
+            android:id="@+id/txNumeroPerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
@@ -81,10 +81,10 @@
             android:inputType="text"
             android:text="Numero de Movil:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txEdad" />
+            app:layout_constraintTop_toBottomOf="@+id/txEdadPerfil" />
 
         <EditText
-            android:id="@+id/txBiografia"
+            android:id="@+id/txBiografiaPerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
@@ -99,7 +99,7 @@
             android:text="Biografía:"
             android:textColor="@color/azul"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txNumero" />
+            app:layout_constraintTop_toBottomOf="@+id/txNumeroPerfil" />
 
         <Button
             android:id="@+id/btnCerrarSesion"
@@ -109,7 +109,7 @@
             android:layout_marginTop="80dp"
             android:text="Cerrar Sesión"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txBiografia" />
+            app:layout_constraintTop_toBottomOf="@+id/txBiografiaPerfil" />
 
         <Button
             android:id="@+id/btnEditarPerfil"
@@ -119,6 +119,6 @@
             android:layout_marginTop="24dp"
             android:text="Editar Perfil"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txBiografia" />
+            app:layout_constraintTop_toBottomOf="@+id/txBiografiaPerfil" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -33,19 +33,18 @@ class RegistroFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_registro, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializar las vistas aquí
-        txEmail = view.findViewById(R.id.txEmail)
-        txContraseña = view.findViewById(R.id.txContraseña)
-        txConfirmarContraseña = view.findViewById(R.id.txConfirmarContraseña)
-        btnVolver = view.findViewById(R.id.btnVolver)
-        btnRegistrar = view.findViewById(R.id.btnRegistrar)
+        // Inicializo las vistas aquí
+        txEmail = view.findViewById(R.id.txEmailRegistro)
+        txContraseña = view.findViewById(R.id.txContraseñaRegistro)
+        txConfirmarContraseña = view.findViewById(R.id.txConfirmarContraseñaRegistro)
+        btnVolver = view.findViewById(R.id.btnVolverRegistro)
+        btnRegistrar = view.findViewById(R.id.btnRegistrarRegistro)
 
         // Listener para el botón de registrar
         btnRegistrar.setOnClickListener {

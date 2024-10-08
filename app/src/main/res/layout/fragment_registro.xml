@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/txEmail"
+            android:id="@+id/txEmailRegistro"
             android:layout_width="217dp"
             android:layout_height="48dp"
             android:layout_marginStart="96dp"
@@ -41,7 +41,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txInicio" />
 
         <EditText
-            android:id="@+id/txContraseña"
+            android:id="@+id/txContraseñaRegistro"
             android:layout_width="217dp"
             android:layout_height="48dp"
             android:layout_marginStart="96dp"
@@ -54,10 +54,10 @@
             android:paddingStart="10dp"
             android:textColorHint="@color/azul"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txEmail" />
+            app:layout_constraintTop_toBottomOf="@+id/txEmailRegistro" />
 
         <EditText
-            android:id="@+id/txConfirmarContraseña"
+            android:id="@+id/txConfirmarContraseñaRegistro"
             android:layout_width="217dp"
             android:layout_height="48dp"
             android:layout_marginStart="96dp"
@@ -70,10 +70,10 @@
             android:paddingStart="10dp"
             android:textColorHint="@color/azul"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txContraseña" />
+            app:layout_constraintTop_toBottomOf="@+id/txContraseñaRegistro" />
 
         <Button
-            android:id="@+id/btnVolver"
+            android:id="@+id/btnVolverRegistro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="96dp"
@@ -81,10 +81,10 @@
             android:fontFamily="@font/simple_cake"
             android:text="¿Ya estás registrado? Pulsa aquí"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txConfirmarContraseña" />
+            app:layout_constraintTop_toBottomOf="@+id/txConfirmarContraseñaRegistro" />
 
         <Button
-            android:id="@+id/btnRegistrar"
+            android:id="@+id/btnRegistrarRegistro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="156dp"
@@ -92,6 +92,6 @@
             android:fontFamily="@font/simple_cake"
             android:text="Registrar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txConfirmarContraseña" />
+            app:layout_constraintTop_toBottomOf="@+id/txConfirmarContraseñaRegistro" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
