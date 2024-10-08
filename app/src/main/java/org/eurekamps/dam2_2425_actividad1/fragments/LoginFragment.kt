@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import org.eurekamps.dam2_2425_actividad1.R
 
 
@@ -21,10 +23,13 @@ class LoginFragment : Fragment() {
     lateinit var btnLogin: Button
     lateinit var btnRegistrar: Button
 
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Inicializar FirebaseAuth
+        auth = FirebaseAuth.getInstance()
     }
 
     override fun onCreateView(
@@ -38,21 +43,45 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializar las vistas aquí, usando el parámetro 'view' proporcionado por onViewCreated
+        // Inicializar las vistas aquí
         txEmail = view.findViewById(R.id.txEmail)
         txContraseña = view.findViewById(R.id.txContraseña)
         txInicioSesion = view.findViewById(R.id.txInicio)
         btnLogin = view.findViewById(R.id.btnLogin)
         btnRegistrar = view.findViewById(R.id.btnRegistrar)
 
-        // Aquí añado listeners o cualquier lógica de manejo de eventos
+        // Listener para el botón de login
         btnLogin.setOnClickListener {
+            val email = txEmail.text.toString().trim()
+            val contraseña = txContraseña.text.toString().trim()
 
+            // Verificar si los campos están vacíos
+            if (email.isEmpty() || contraseña.isEmpty()) {
+                Toast.makeText(requireContext(), "Por favor, rellena todos los campos.", Toast.LENGTH_SHORT).show()
+            } else {
+                // Iniciar sesión con Firebase
+                iniciarSesion(email, contraseña)
+            }
         }
 
+        // Listener para el botón de registro
         btnRegistrar.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registroFragment)
         }
+    }
+
+    private fun iniciarSesion(email: String, contraseña: String) {
+        auth.signInWithEmailAndPassword(email, contraseña)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Inicio de sesión exitoso y navego al perfilFragment
+                    Toast.makeText(requireContext(), "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_loginFragment_to_perfilFragment)
+                } else {
+                    // Si ocurre un error en el inicio de sesión
+                    Toast.makeText(requireContext(), "Error en el inicio de sesión: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
 }
