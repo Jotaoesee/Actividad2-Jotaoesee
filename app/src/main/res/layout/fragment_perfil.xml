@@ -16,16 +16,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
-            android:layout_marginTop="180dp"
+            android:layout_marginTop="108dp"
             android:background="@drawable/border_edit_text"
             android:ems="10"
             android:fontFamily="@font/simple_cake"
+            android:hint="Nombre:"
             android:inputType="text"
             android:minHeight="60dp"
             android:padding="16dp"
             android:paddingStart="10dp"
-            android:text="Nombre:"
-            android:textColor="@color/azul"
+            android:textColorHint="@color/azul"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,11 +39,11 @@
             android:minHeight="60dp"
             android:background="@drawable/border_edit_text"
             android:paddingStart="10dp"
-            android:textColor="@color/azul"
             android:fontFamily="@font/simple_cake"
             android:ems="10"
             android:inputType="text"
-            android:text="Apellidos:"
+            android:hint="Apellidos:"
+            android:textColorHint="@color/azul"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txNombrePerfil" />
 
@@ -57,11 +57,11 @@
             android:minHeight="60dp"
             android:background="@drawable/border_edit_text"
             android:paddingStart="10dp"
-            android:textColor="@color/azul"
             android:fontFamily="@font/simple_cake"
             android:ems="10"
             android:inputType="text"
-            android:text="Edad:"
+            android:hint="Edad:"
+            android:textColorHint="@color/azul"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txApellidosPerfil" />
 
@@ -75,11 +75,11 @@
             android:minHeight="60dp"
             android:background="@drawable/border_edit_text"
             android:paddingStart="10dp"
-            android:textColor="@color/azul"
             android:fontFamily="@font/simple_cake"
             android:ems="10"
             android:inputType="text"
-            android:text="Numero de Movil:"
+            android:textColorHint="@color/azul"
+            android:hint="Teléfono movil:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txEdadPerfil" />
 
@@ -96,8 +96,8 @@
             android:minHeight="60dp"
             android:padding="16dp"
             android:paddingStart="10dp"
-            android:text="Biografía:"
-            android:textColor="@color/azul"
+            android:hint="Biografía:"
+            android:textColorHint="@color/azul"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txNumeroPerfil" />
 
