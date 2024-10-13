@@ -1,8 +1,7 @@
-package org.eurekamps.dam2_2425_actividad1.fragments
-
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,17 +27,19 @@ class SplashFragment : Fragment() {
         // Inicializar Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        // Usar un Handler para retrasar la ejecución y mostrar el SplashScreen por unos segundos
+        // Uso un Handler para retrasar la ejecución y mostrar el SplashScreen por unos segundos
         Handler(Looper.getMainLooper()).postDelayed({
             // Verificar si hay un usuario autenticado
-            val currentUser = auth.currentUser
-            if (currentUser != null) {
-                // Usuario autenticado, navegar al PerfilFragment
+            val usuario = auth.currentUser
+            if (usuario != null) {
+                // Usuario ya está autenticado, ir al PerfilFragment
+                Log.d("SplashFragment", "Usuario autenticado: ${usuario.email}")
                 findNavController().navigate(R.id.action_splashFragment_to_perfilFragment)
             } else {
-                // No hay usuario autenticado, navegar al LoginFragment
+                // No hay usuario autenticado, ir al LoginFragment
+                Log.d("SplashFragment", "No hay usuario autenticado.")
                 findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
             }
-        }, 2000) // Espera de 2 segundos antes de redirigir
+        }, 3000) // Espera de 3 segundos antes de redirigir
     }
 }

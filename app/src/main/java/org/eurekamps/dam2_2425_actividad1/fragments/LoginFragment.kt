@@ -40,7 +40,6 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflar el layout del fragmento de inicio de sesión
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 

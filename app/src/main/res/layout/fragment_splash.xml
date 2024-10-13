@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/simple_cake"
-            android:text="Cargando"
+            android:text="@string/cargando"
             android:textColor="@color/azul"
             android:textSize="60sp"
             app:layout_constraintBottom_toTopOf="@+id/progreso"

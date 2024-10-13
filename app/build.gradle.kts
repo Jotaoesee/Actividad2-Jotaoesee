@@ -53,4 +53,6 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation ("com.google.firebase:firebase-auth:23.0.0")
 }

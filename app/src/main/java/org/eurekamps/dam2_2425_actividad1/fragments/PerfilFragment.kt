@@ -9,10 +9,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import org.eurekamps.dam2_2425_actividad1.R
 
 
 class PerfilFragment : Fragment() {
+
+    private lateinit var auth: FirebaseAuth
 
     lateinit var txNombre : EditText
     lateinit var txApellidos : EditText
@@ -24,6 +27,8 @@ class PerfilFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        auth = FirebaseAuth.getInstance()
 
     }
 
@@ -48,10 +53,12 @@ class PerfilFragment : Fragment() {
 
 
         btnCerrarSesion.setOnClickListener {
-           findNavController().navigate(R.id.action_perfilFragment_to_loginFragment)
+            auth.signOut()
+            findNavController().navigate(R.id.action_perfilFragment_to_loginFragment)
         }
 
-       btnEditarPerfil.setOnClickListener {
+
+        btnEditarPerfil.setOnClickListener {
 
        }
 
