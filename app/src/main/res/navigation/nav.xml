@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_perfilFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_perfilFragment_to_profilesFragment"
+            app:destination="@id/profilesFragment" />
     </fragment>
     <fragment
         android:id="@+id/registroFragment"
@@ -44,4 +47,9 @@
             android:id="@+id/action_splashFragment_to_perfilFragment"
             app:destination="@id/perfilFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/profilesFragment"
+        android:name="org.eurekamps.dam2_2425_actividad1.fragments.ProfilesFragment"
+        android:label="fragment_profiles"
+        tools:layout="@layout/fragment_profiles" />
 </navigation>

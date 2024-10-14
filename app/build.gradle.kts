@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -55,4 +56,6 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("com.google.firebase:firebase-auth:23.0.0")
+    implementation ("com.google.firebase:firebase-auth-ktx:21.0.6")
+    implementation ("com.google.firebase:firebase-firestore-ktx:24.6.0")
 }

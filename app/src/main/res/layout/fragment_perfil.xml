@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
-            android:layout_marginTop="108dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/border_edit_text"
             android:ems="10"
             android:fontFamily="@font/simple_cake"
@@ -83,42 +83,55 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txEdadPerfil" />
 
-        <EditText
-            android:id="@+id/txBiografiaPerfil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/border_edit_text"
-            android:ems="10"
-            android:fontFamily="@font/simple_cake"
-            android:inputType="textMultiLine"
-            android:minHeight="60dp"
-            android:padding="16dp"
-            android:paddingStart="10dp"
-            android:hint="@string/biograf_a"
-            android:textColorHint="@color/azul"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txNumeroPerfil" />
-
         <Button
             android:id="@+id/btnCerrarSesion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="136dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="76dp"
             android:text="@string/cerrar_sesi_n"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txBiografiaPerfil" />
+            app:layout_constraintTop_toBottomOf="@+id/btnEliminar" />
 
         <Button
-            android:id="@+id/btnEditarPerfil"
+            android:id="@+id/btnGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="144dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/editar_perfil"
+            android:layout_marginStart="156dp"
+            android:layout_marginTop="28dp"
+            android:text="Guardar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txBiografiaPerfil" />
+            app:layout_constraintTop_toBottomOf="@+id/txNumeroPerfil" />
+
+        <Button
+            android:id="@+id/btnMostrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="152dp"
+            android:layout_marginTop="16dp"
+            android:text="Mostrar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnGuardar" />
+
+        <Button
+            android:id="@+id/btnEliminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="152dp"
+            android:layout_marginTop="16dp"
+            android:text="Eliminar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnMostrar" />
+
+        <Button
+            android:id="@+id/btnIrProfiles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="156dp"
+            android:layout_marginTop="16dp"
+            android:text="Profiles"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnEliminar" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
