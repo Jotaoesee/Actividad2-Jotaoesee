@@ -17,9 +17,10 @@
             android:id="@+id/txPerfiles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lista de Perfiles"
+            android:fontFamily="@font/simple_cake"
+            android:text="@string/lista_de_perfiles"
             android:textColor="@color/azul"
-            android:textSize="24sp"
+            android:textSize="40sp"
             android:textStyle="bold"
             android:gravity="center"
             android:paddingBottom="16dp"/>
