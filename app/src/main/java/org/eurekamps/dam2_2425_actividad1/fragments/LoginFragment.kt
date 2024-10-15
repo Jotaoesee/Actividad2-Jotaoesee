@@ -61,11 +61,14 @@ class LoginFragment : Fragment() {
             val email = txEmail.text.toString().trim()
             val contrasenia = txContraseña.text.toString().trim()
 
-            //Compruebo que los campos no esten vacios
-            if (email.isEmpty() || contrasenia.isEmpty()) {
-                Toast.makeText(requireContext(), "Por favor, rellena todos los campos.", Toast.LENGTH_SHORT).show()
+            if (email.isEmpty()) {
+                Toast.makeText(requireContext(), "Por favor, introduce un correo electrónico.", Toast.LENGTH_SHORT).show()
+            } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(requireContext(), "Formato de correo electrónico inválido.", Toast.LENGTH_SHORT).show()
+            } else if (contrasenia.isEmpty()) {
+                Toast.makeText(requireContext(), "Por favor, introduce una contraseña.", Toast.LENGTH_SHORT).show()
             } else {
-                iniciarSesion(email, contrasenia)
+                iniciarSesion(email, contrasenia) // Llama a la función si la validación es correcta
             }
         }
 

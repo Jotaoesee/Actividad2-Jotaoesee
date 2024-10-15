@@ -91,10 +91,10 @@ class PerfilFragment : Fragment() {
 
             // Crea un objeto de la Data Class FbProfile
             val perfilData = FbProfile(
-                nombre = nombre,
-                apellido = apellidos,
-                edad = edad,
-                telefonoMovil = telefono
+                Nombre = nombre,
+                Apellidos = apellidos,
+                Edad = edad,
+                Telefono = telefono
             )
 
             // Guardar los datos en Firestore usando el UID como ID del documento
@@ -119,10 +119,10 @@ class PerfilFragment : Fragment() {
             db.collection("users").document(uid).get()
                 .addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
-                        txNombre.setText(document.getString("Nombre"))
-                        txApellidos.setText(document.getString("Apellidos"))
-                        txEdad.setText(document.getLong("Edad")?.toString())
-                        txNumero.setText(document.getString("Telefono"))
+                        txNombre.setText(document.getString("nombre"))
+                        txApellidos.setText(document.getString("apellidos"))
+                        txEdad.setText(document.getLong("edad")?.toString())
+                        txNumero.setText(document.getString("telefono"))
 
                         Toast.makeText(requireContext(), "Perfil recuperado exitosamente.", Toast.LENGTH_SHORT).show()
                     } else {

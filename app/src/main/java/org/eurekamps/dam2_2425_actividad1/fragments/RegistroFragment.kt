@@ -53,12 +53,16 @@ class RegistroFragment : Fragment() {
             val confirmarContraseña = txConfirmarContraseña.text.toString().trim()
 
             // Validar los campos antes de intentar el registro
-            if (email.isEmpty() || contraseña.isEmpty() || confirmarContraseña.isEmpty()) {
-                Toast.makeText(requireContext(), "Por favor, rellena todos los campos.", Toast.LENGTH_SHORT).show()
+            if (email.isEmpty()) {
+                Toast.makeText(requireContext(), "Por favor, introduce un correo electrónico.", Toast.LENGTH_SHORT).show()
+            } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(requireContext(), "Formato de correo electrónico inválido.", Toast.LENGTH_SHORT).show()
+            } else if (contraseña.isEmpty() || confirmarContraseña.isEmpty()) {
+                Toast.makeText(requireContext(), "Por favor, introduce y confirma la contraseña.", Toast.LENGTH_SHORT).show()
             } else if (contraseña != confirmarContraseña) {
                 Toast.makeText(requireContext(), "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show()
             } else {
-                // Llamar a la función para registrar al usuario
+                // Llamar a la función para registrar al usuario si los campos son válidos
                 registrarUsuario(email, contraseña)
             }
         }

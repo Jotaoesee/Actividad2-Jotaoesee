@@ -6,10 +6,32 @@
     android:background="@color/marron"
     tools:context=".fragments.ProfilesFragment">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Encabezado o título de la lista -->
+        <TextView
+            android:id="@+id/txPerfiles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lista de Perfiles"
+            android:textColor="@color/azul"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingBottom="16dp"/>
+
+        <!-- RecyclerView para mostrar la lista de perfiles -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listaPerfiles"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="vertical"/>
+
+    </LinearLayout>
+
 </FrameLayout>
