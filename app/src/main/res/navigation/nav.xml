@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_loginFragment_to_perfilFragment"
             app:destination="@id/perfilFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_profilesFragment"
+            app:destination="@id/profilesFragment" />
     </fragment>
     <fragment
         android:id="@+id/perfilFragment"
@@ -46,6 +49,9 @@
         <action
             android:id="@+id/action_splashFragment_to_perfilFragment"
             app:destination="@id/perfilFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_profilesFragment"
+            app:destination="@id/profilesFragment" />
     </fragment>
     <fragment
         android:id="@+id/profilesFragment"

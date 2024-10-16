@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import org.eurekamps.dam2_2425_actividad1.R
-
+import org.eurekamps.dam2_2425_actividad1.statics.DataHolder
 
 
 class LoginFragment : Fragment() {
@@ -85,7 +85,8 @@ class LoginFragment : Fragment() {
                 if (task.isSuccessful) {
                     // Inicio de sesión exitoso y navego al perfilFragment
                     Toast.makeText(requireContext(), "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_loginFragment_to_perfilFragment)
+                    //findNavController().navigate(R.id.action_loginFragment_to_perfilFragment)
+                    DataHolder.descargarPerfil(requireActivity(),findNavController(),R.id.action_loginFragment_to_profilesFragment,R.id.action_loginFragment_to_perfilFragment)
                 } else {
                     // Manejo de errores
                     val errorMessage = when (task.exception) {

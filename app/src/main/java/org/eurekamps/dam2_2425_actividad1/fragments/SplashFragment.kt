@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import org.eurekamps.dam2_2425_actividad1.R
+import org.eurekamps.dam2_2425_actividad1.statics.DataHolder
 
 class SplashFragment : Fragment() {
 
@@ -34,7 +35,8 @@ class SplashFragment : Fragment() {
             if (usuario != null) {
                 // Usuario ya está autenticado, ir al PerfilFragment
                 Log.d("SplashFragment", "Usuario autenticado: ${usuario.email}")
-                findNavController().navigate(R.id.action_splashFragment_to_perfilFragment)
+                DataHolder.descargarPerfil(requireActivity(),findNavController(),R.id.action_splashFragment_to_profilesFragment,R.id.action_splashFragment_to_perfilFragment)
+
             } else {
                 // No hay usuario autenticado, ir al LoginFragment
                 Log.d("SplashFragment", "No hay usuario autenticado.")
