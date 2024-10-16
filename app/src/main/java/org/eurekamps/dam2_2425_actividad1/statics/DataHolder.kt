@@ -1,8 +1,7 @@
 package org.eurekamps.dam2_2425_actividad1.statics
 
 import android.app.Activity
-import android.content.Context
-import android.content.Intent
+
 import android.util.Log
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
@@ -23,7 +22,7 @@ object DataHolder {
                 perfil = document.toObject(FbProfile::class.java)
 
                 Log.d(TAG, "DocumentSnapshot data: ${document.data!!}")
-                Log.d(TAG, "Mi Perfil data NAME: ${perfil!!.Nombre}")
+                Log.d(TAG, "Mi Perfil data NAME: ${perfil!!.nombre}")
 
                 miNav.navigate(idActionNav)
 

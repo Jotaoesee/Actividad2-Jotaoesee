@@ -33,6 +33,18 @@
             android:layout_weight="1"
             android:scrollbars="vertical"/>
 
+        <Button
+            android:id="@+id/btnPerfil"
+            android:layout_width="381dp"
+            android:layout_height="wrap_content"
+            android:text="Perfil" />
+
+        <Button
+            android:id="@+id/btnCerrarProfiles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cerrar sesión" />
+
     </LinearLayout>
 
 </FrameLayout>

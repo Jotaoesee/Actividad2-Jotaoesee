@@ -57,5 +57,12 @@
         android:id="@+id/profilesFragment"
         android:name="org.eurekamps.dam2_2425_actividad1.fragments.ProfilesFragment"
         android:label="fragment_profiles"
-        tools:layout="@layout/fragment_profiles" />
+        tools:layout="@layout/fragment_profiles" >
+        <action
+            android:id="@+id/action_profilesFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_profilesFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+    </fragment>
 </navigation>

@@ -91,10 +91,10 @@ class PerfilFragment : Fragment() {
 
             // Crea un objeto de la Data Class FbProfile
             val perfilData = FbProfile(
-                Nombre = nombre,
-                Apellidos = apellidos,
-                Edad = edad,
-                Telefono = telefono
+                nombre = nombre,
+                apellidos = apellidos,
+                edad = edad,
+                telefono = telefono
             )
 
             // Guardar los datos en Firestore usando el UID como ID del documento

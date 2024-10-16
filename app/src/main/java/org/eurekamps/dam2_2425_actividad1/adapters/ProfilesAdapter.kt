@@ -26,10 +26,10 @@ class ProfileAdapter(private val profilesList: List<FbProfile>) :
 
     override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
         val profile = profilesList[position]
-        holder.tvNombre.text = profile.Nombre
-        holder.tvApellido.text = profile.Apellidos
-        holder.tvEdad.text = "Edad: ${profile.Edad}"
-        holder.tvTelefonoMovil.text = "Teléfono: ${profile.Telefono}"
+        holder.tvNombre.text = profile.nombre
+        holder.tvApellido.text = profile.apellidos
+        holder.tvEdad.text = "Edad: ${profile.edad}"
+        holder.tvTelefonoMovil.text = "Teléfono: ${profile.telefono}"
     }
 
     override fun getItemCount() = profilesList.size
