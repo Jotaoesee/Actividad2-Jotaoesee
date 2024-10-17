@@ -35,7 +35,7 @@ class SplashFragment : Fragment() {
             if (usuario != null) {
                 // Usuario ya está autenticado, ir al PerfilFragment
                 Log.d("SplashFragment", "Usuario autenticado: ${usuario.email}")
-                DataHolder.descargarPerfil(requireActivity(),findNavController(),R.id.action_splashFragment_to_profilesFragment,R.id.action_splashFragment_to_perfilFragment)
+                DataHolder.descargarPerfil(requireActivity(),findNavController(),R.id.action_splashFragment_to_perfilFragment)
 
             } else {
                 // No hay usuario autenticado, ir al LoginFragment

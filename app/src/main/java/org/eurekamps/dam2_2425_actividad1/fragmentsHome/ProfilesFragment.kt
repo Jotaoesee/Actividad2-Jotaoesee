@@ -1,5 +1,6 @@
-package org.eurekamps.dam2_2425_actividad1.fragments
+package org.eurekamps.dam2_2425_actividad1.fragmentsHome
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import org.eurekamps.dam2_2425_actividad1.MainActivity
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.adapters.ProfileAdapter
 import org.eurekamps.dam2_2425_actividad1.fbClases.FbProfile
@@ -25,7 +27,6 @@ class ProfilesFragment : Fragment() {
     private val profilesList = mutableListOf<FbProfile>()
 
     private lateinit var btnCerrarProfiles : Button
-    private lateinit var btnPerfil: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +43,6 @@ class ProfilesFragment : Fragment() {
 
         // Inicializar el RecyclerView
         recyclerProfiles = view.findViewById(R.id.listaPerfiles)
-        btnPerfil = view.findViewById(R.id.btnPerfil)
         btnCerrarProfiles = view.findViewById(R.id.btnCerrarProfiles)
         recyclerProfiles.layoutManager = LinearLayoutManager(requireContext())
         profilesAdapter = ProfileAdapter(profilesList)
@@ -53,12 +53,11 @@ class ProfilesFragment : Fragment() {
 
         btnCerrarProfiles.setOnClickListener {
             auth.signOut()
-            findNavController().navigate(R.id.action_profilesFragment_to_loginFragment)
+            val intent = Intent(requireActivity(), MainActivity::class.java)
+            requireActivity().startActivity(intent)
+            requireActivity().finish()
         }
 
-        btnPerfil.setOnClickListener{
-            findNavController().navigate(R.id.action_profilesFragment_to_perfilFragment)
-        }
     }
 
     private fun mostrarPerfiles() {

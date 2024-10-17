@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/perfil_bici"
-    tools:context=".fragments.PerfilFragment">
+    tools:context=".fragmentsMain.PerfilFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="136dp"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="28dp"
             android:text="@string/cerrar_sesi_n"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnEliminar" />
@@ -122,16 +122,6 @@
             android:text="Eliminar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnMostrar" />
-
-        <Button
-            android:id="@+id/btnIrProfiles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="156dp"
-            android:layout_marginTop="16dp"
-            android:text="Profiles"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnEliminar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

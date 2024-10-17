@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/profilesFragment">
+    <fragment
+        android:id="@+id/profilesFragment"
+        android:name="org.eurekamps.dam2_2425_actividad1.fragmentsHome.ProfilesFragment"
+        android:label="ProfilesFragment" />
+</navigation>

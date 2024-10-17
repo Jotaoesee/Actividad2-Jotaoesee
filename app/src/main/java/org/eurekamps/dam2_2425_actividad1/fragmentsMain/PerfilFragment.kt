@@ -1,5 +1,6 @@
-package org.eurekamps.dam2_2425_actividad1.fragments
+package org.eurekamps.dam2_2425_actividad1.fragmentsMain
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import org.eurekamps.dam2_2425_actividad1.HomeActivity
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.fbClases.FbProfile
 
@@ -29,7 +31,7 @@ class PerfilFragment : Fragment() {
     lateinit var btnGuardar: Button
     lateinit var btnMostrar: Button
     lateinit var btnEliminar: Button
-    lateinit var btnIrProfiles: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +58,6 @@ class PerfilFragment : Fragment() {
         btnGuardar = view.findViewById(R.id.btnGuardar)
         btnMostrar = view.findViewById(R.id.btnMostrar)
         btnEliminar = view.findViewById(R.id.btnEliminar)
-        btnIrProfiles = view.findViewById(R.id.btnIrProfiles)
 
         btnCerrarSesion.setOnClickListener {
             auth.signOut()
@@ -75,9 +76,6 @@ class PerfilFragment : Fragment() {
             recuperarPerfil()
         }
 
-        btnIrProfiles.setOnClickListener{
-            findNavController().navigate(R.id.action_perfilFragment_to_profilesFragment)
-        }
     }
 
     private fun guardarPerfil() {
@@ -102,6 +100,9 @@ class PerfilFragment : Fragment() {
                 .set(perfilData)
                 .addOnSuccessListener {
                     Toast.makeText(requireContext(), "Perfil guardado exitosamente.", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(requireActivity(), HomeActivity::class.java)
+                    requireActivity().startActivity(intent)
+                    requireActivity().finish()
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(requireContext(), "Error al guardar perfil: ${e.message}", Toast.LENGTH_SHORT).show()

@@ -1,4 +1,4 @@
-package org.eurekamps.dam2_2425_actividad1.fragments
+package org.eurekamps.dam2_2425_actividad1.fragmentsMain
 
 import android.os.Bundle
 import android.util.Log
@@ -86,7 +86,7 @@ class LoginFragment : Fragment() {
                     // Inicio de sesión exitoso y navego al perfilFragment
                     Toast.makeText(requireContext(), "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                     //findNavController().navigate(R.id.action_loginFragment_to_perfilFragment)
-                    DataHolder.descargarPerfil(requireActivity(),findNavController(),R.id.action_loginFragment_to_profilesFragment,R.id.action_loginFragment_to_perfilFragment)
+                    DataHolder.descargarPerfil(requireActivity(), findNavController(), R.id.action_loginFragment_to_perfilFragment)
                 } else {
                     // Manejo de errores
                     val errorMessage = when (task.exception) {

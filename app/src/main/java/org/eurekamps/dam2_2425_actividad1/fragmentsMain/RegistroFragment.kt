@@ -1,4 +1,4 @@
-package org.eurekamps.dam2_2425_actividad1.fragments
+package org.eurekamps.dam2_2425_actividad1.fragmentsMain
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
