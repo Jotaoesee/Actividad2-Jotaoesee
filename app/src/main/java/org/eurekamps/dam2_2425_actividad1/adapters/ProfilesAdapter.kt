@@ -8,29 +8,38 @@ import androidx.recyclerview.widget.RecyclerView
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.fbClases.FbProfile
 
+// Adaptador para manejar una lista de perfiles y vincularlos a un RecyclerView
 class ProfileAdapter(private val profilesList: List<FbProfile>) :
     RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
 
+    // ViewHolder para almacenar las referencias a las vistas de cada elemento de la lista
     class ProfileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        // Referencias a los TextView del layout del perfil
         val tvNombre: TextView = itemView.findViewById(R.id.tvNombre)
         val tvApellido: TextView = itemView.findViewById(R.id.tvApellido)
         val tvEdad: TextView = itemView.findViewById(R.id.tvEdad)
         val tvTelefonoMovil: TextView = itemView.findViewById(R.id.tvTelefonoMovil)
     }
 
+    // Crea un nuevo ViewHolder inflando el layout XML para un perfil
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
+        // Infla el layout de un elemento individual de la lista de perfiles (profile_item.xml)
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.profile_item, parent, false)
         return ProfileViewHolder(itemView)
     }
 
+    // Asigna los datos del perfil a las vistas del ViewHolder en una posición determinada
     override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
+        // Obtiene el perfil correspondiente a la posición actual
         val profile = profilesList[position]
+        // Asigna los valores del perfil a los TextViews correspondientes
         holder.tvNombre.text = profile.nombre
         holder.tvApellido.text = profile.apellidos
         holder.tvEdad.text = "Edad: ${profile.edad}"
         holder.tvTelefonoMovil.text = "Teléfono: ${profile.telefono}"
     }
 
+    // Devuelve el número total de perfiles en la lista
     override fun getItemCount() = profilesList.size
 }

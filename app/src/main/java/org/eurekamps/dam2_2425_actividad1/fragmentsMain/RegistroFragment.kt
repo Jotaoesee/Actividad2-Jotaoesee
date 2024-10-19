@@ -14,18 +14,20 @@ import org.eurekamps.dam2_2425_actividad1.R
 
 class RegistroFragment : Fragment() {
 
+    // Declaración de variables para los elementos de la interfaz
     lateinit var txEmail: EditText
     lateinit var txContraseña: EditText
     lateinit var txConfirmarContraseña: EditText
     lateinit var btnVolver: Button
     lateinit var btnRegistrar: Button
 
+    // Variable para la instancia de FirebaseAuth
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inicializar FirebaseAuth
+        // Inicializa FirebaseAuth
         auth = FirebaseAuth.getInstance()
     }
 
@@ -33,13 +35,14 @@ class RegistroFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflar el layout del fragmento
         return inflater.inflate(R.layout.fragment_registro, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializo las vistas aquí
+        // Inicialización de las vistas
         txEmail = view.findViewById(R.id.txEmailRegistro)
         txContraseña = view.findViewById(R.id.txContraseñaRegistro)
         txConfirmarContraseña = view.findViewById(R.id.txConfirmarContraseñaRegistro)
@@ -48,11 +51,12 @@ class RegistroFragment : Fragment() {
 
         // Listener para el botón de registrar
         btnRegistrar.setOnClickListener {
+            // Obtiene los valores ingresados
             val email = txEmail.text.toString().trim()
             val contraseña = txContraseña.text.toString().trim()
             val confirmarContraseña = txConfirmarContraseña.text.toString().trim()
 
-            // Validar los campos antes de intentar el registro
+            // Validaciones de los campos
             if (email.isEmpty()) {
                 Toast.makeText(requireContext(), "Por favor, introduce un correo electrónico.", Toast.LENGTH_SHORT).show()
             } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -62,13 +66,14 @@ class RegistroFragment : Fragment() {
             } else if (contraseña != confirmarContraseña) {
                 Toast.makeText(requireContext(), "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show()
             } else {
-                // Llamar a la función para registrar al usuario si los campos son válidos
+                // Llama a la función de registro si los campos son válidos
                 registrarUsuario(email, contraseña)
             }
         }
 
         // Listener para el botón de volver
         btnVolver.setOnClickListener {
+            // Navega de vuelta al login
             findNavController().navigate(R.id.action_registroFragment_to_loginFragment)
         }
     }
@@ -78,12 +83,11 @@ class RegistroFragment : Fragment() {
         auth.createUserWithEmailAndPassword(email, contraseña)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    // Registro exitoso
+                    // Si el registro es exitoso, muestra un mensaje y navega al login
                     Toast.makeText(requireContext(), "Registro exitoso", Toast.LENGTH_SHORT).show()
-                    // Navegar al login u otra pantalla
                     findNavController().navigate(R.id.action_registroFragment_to_loginFragment)
                 } else {
-                    // Si ocurre un error, mostrar el mensaje
+                    // Si ocurre un error, muestra el mensaje
                     Toast.makeText(requireContext(), "Error en el registro: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }

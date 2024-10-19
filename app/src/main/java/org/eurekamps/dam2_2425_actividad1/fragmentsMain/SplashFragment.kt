@@ -19,29 +19,29 @@ class SplashFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflar el layout del fragmento Splash
         return inflater.inflate(R.layout.fragment_splash, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializar Firebase Auth
+        // Inicializa Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        // Uso un Handler para retrasar la ejecución y mostrar el SplashScreen por unos segundos
+        // Usar un Handler para retrasar la ejecución y mostrar el Splash por 3 segundos
         Handler(Looper.getMainLooper()).postDelayed({
             // Verificar si hay un usuario autenticado
             val usuario = auth.currentUser
             if (usuario != null) {
-                // Usuario ya está autenticado, ir al PerfilFragment
+                // Si el usuario ya está autenticado, navega al PerfilFragment
                 Log.d("SplashFragment", "Usuario autenticado: ${usuario.email}")
-                DataHolder.descargarPerfil(requireActivity(),findNavController(),R.id.action_splashFragment_to_perfilFragment)
-
+                DataHolder.descargarPerfil(requireActivity(), findNavController(), R.id.action_splashFragment_to_perfilFragment)
             } else {
-                // No hay usuario autenticado, ir al LoginFragment
+                // Si no hay usuario autenticado, navega al LoginFragment
                 Log.d("SplashFragment", "No hay usuario autenticado.")
                 findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
             }
-        }, 3000) // Espera de 3 segundos antes de redirigir
+        }, 3000) // 3 segundos de espera
     }
 }

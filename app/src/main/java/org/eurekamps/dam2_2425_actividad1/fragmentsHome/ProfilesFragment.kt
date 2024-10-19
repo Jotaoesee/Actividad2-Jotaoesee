@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -20,62 +19,79 @@ import org.eurekamps.dam2_2425_actividad1.fbClases.FbProfile
 
 class ProfilesFragment : Fragment() {
 
+    // Instancia de Firebase Firestore para acceder a la base de datos
     private val db = FirebaseFirestore.getInstance()
+    // Instancia de FirebaseAuth para manejar la autenticación del usuario
     private lateinit var auth: FirebaseAuth
+    // RecyclerView para mostrar la lista de perfiles
     private lateinit var recyclerProfiles: RecyclerView
+    // Adaptador para manejar la lista de perfiles
     private lateinit var profilesAdapter: ProfileAdapter
+    // Lista mutable que almacena los perfiles recuperados
     private val profilesList = mutableListOf<FbProfile>()
-
+    // Botón para cerrar sesión
     private lateinit var btnCerrarProfiles : Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Inflar el layout del fragmento (fragment_profiles.xml)
         return inflater.inflate(R.layout.fragment_profiles, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Inicializa la instancia de autenticación de Firebase
         auth = FirebaseAuth.getInstance()
 
-        // Inicializar el RecyclerView
+        // Inicializar el RecyclerView y configurar su layout manager
         recyclerProfiles = view.findViewById(R.id.listaPerfiles)
         btnCerrarProfiles = view.findViewById(R.id.btnCerrarProfiles)
         recyclerProfiles.layoutManager = LinearLayoutManager(requireContext())
+
+        // Inicializar el adaptador del RecyclerView con la lista vacía de perfiles
         profilesAdapter = ProfileAdapter(profilesList)
         recyclerProfiles.adapter = profilesAdapter
 
-        // Llama a la función para recuperar y mostrar perfiles
+        // Llama a la función para recuperar y mostrar los perfiles de la base de datos
         mostrarPerfiles()
 
+        // Configurar el botón de cerrar sesión
         btnCerrarProfiles.setOnClickListener {
+            // Cierra la sesión del usuario actual
             auth.signOut()
+            // Redirige a la MainActivity después de cerrar la sesión
             val intent = Intent(requireActivity(), MainActivity::class.java)
             requireActivity().startActivity(intent)
-            requireActivity().finish()
+            requireActivity().finish() // Finaliza la actividad actual
         }
 
     }
 
+    // Función para recuperar los perfiles desde Firestore y actualizarlos en el RecyclerView
     private fun mostrarPerfiles() {
-        // Recuperar todos los perfiles de la colección "users"
+        // Recupera la colección "users" de Firestore
         db.collection("users").get()
             .addOnSuccessListener { result ->
-                profilesList.clear() // Limpia la lista antes de llenarla
+                // Limpiar la lista antes de llenarla con nuevos datos
+                profilesList.clear()
                 for (document in result) {
+                    // Convierte cada documento en un objeto FbProfile
                     val profile = document.toObject(FbProfile::class.java)
                     if (profile != null) { // Verifica que el perfil no sea nulo
-                        profilesList.add(profile)
+                        profilesList.add(profile) // Añade el perfil a la lista
                     } else {
+                        // Log de advertencia si un documento es nulo
                         Log.w("ProfilesFragment", "Document ${document.id} is null")
                     }
                 }
-                profilesAdapter.notifyDataSetChanged() // Notifica al adaptador que los datos han cambiado
+                // Notifica al adaptador que los datos han cambiado para actualizar el RecyclerView
+                profilesAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { e ->
+                // Log de error en caso de fallo al recuperar los datos
                 Log.e("ProfilesFragment", "Error fetching profiles: ", e)
             }
     }
