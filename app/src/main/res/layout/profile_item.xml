@@ -23,18 +23,12 @@
 
 
     <TextView
-        android:id="@+id/tvEdad"
+        android:id="@+id/tvHobbie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/azul"
         android:fontFamily="@font/simple_cake"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/tvTelefonoMovil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/azul"
-        android:fontFamily="@font/simple_cake"
-        android:textSize="16sp" />
+
 </LinearLayout>

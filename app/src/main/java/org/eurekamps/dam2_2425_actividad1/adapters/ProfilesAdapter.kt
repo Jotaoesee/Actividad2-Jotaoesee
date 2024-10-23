@@ -17,8 +17,7 @@ class ProfileAdapter(private val profilesList: List<FbProfile>) :
         // Referencias a los TextView del layout del perfil
         val tvNombre: TextView = itemView.findViewById(R.id.tvNombre)
         val tvApellido: TextView = itemView.findViewById(R.id.tvApellido)
-        val tvEdad: TextView = itemView.findViewById(R.id.tvEdad)
-        val tvTelefonoMovil: TextView = itemView.findViewById(R.id.tvTelefonoMovil)
+        val tvHobbies: TextView = itemView.findViewById(R.id.tvHobbie)
     }
 
     // Crea un nuevo ViewHolder inflando el layout XML para un perfil
@@ -36,8 +35,7 @@ class ProfileAdapter(private val profilesList: List<FbProfile>) :
         // Asigna los valores del perfil a los TextViews correspondientes
         holder.tvNombre.text = profile.nombre
         holder.tvApellido.text = profile.apellidos
-        holder.tvEdad.text = "Edad: ${profile.edad}"
-        holder.tvTelefonoMovil.text = "Teléfono: ${profile.telefono}"
+        holder.tvHobbies.text = profile.hobbies
     }
 
     // Devuelve el número total de perfiles en la lista
