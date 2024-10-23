@@ -3,8 +3,10 @@ package org.eurekamps.dam2_2425_actividad1.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.fbClases.FbProfile
 
@@ -18,6 +20,7 @@ class ProfileAdapter(private val profilesList: List<FbProfile>) :
         val tvNombre: TextView = itemView.findViewById(R.id.tvNombre)
         val tvApellido: TextView = itemView.findViewById(R.id.tvApellido)
         val tvHobbies: TextView = itemView.findViewById(R.id.tvHobbie)
+        val imgPerfil: ImageView = itemView.findViewById(R.id.imgPerfil)
     }
 
     // Crea un nuevo ViewHolder inflando el layout XML para un perfil
@@ -36,6 +39,18 @@ class ProfileAdapter(private val profilesList: List<FbProfile>) :
         holder.tvNombre.text = profile.nombre
         holder.tvApellido.text = profile.apellidos
         holder.tvHobbies.text = profile.hobbies
+
+        // Cargar la imagen usando Picasso
+        profile.imagenUrl?.let { url ->
+            Picasso.get()
+                .load(url) // Cargar la imagen desde la URL
+                .placeholder(R.drawable.registro_bici) // Imagen de carga
+                .error(R.drawable.registro_bici) // Imagen en caso de error
+                .into(holder.imgPerfil)
+        } ?: run {
+            // Si no hay URL, puedes establecer una imagen predeterminada
+            holder.imgPerfil.setImageResource(R.drawable.registro_bici)
+        }
     }
 
     // Devuelve el número total de perfiles en la lista

@@ -1,6 +1,7 @@
 package org.eurekamps.dam2_2425_actividad1.fragmentsMain
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -33,6 +35,10 @@ class PerfilFragment : Fragment() {
     lateinit var btnGuardar: Button
     lateinit var btnMostrar: Button
     lateinit var btnEliminar: Button
+    lateinit var imgPerfil: ImageView
+
+    private var imageUri: Uri? = null // Variable para almacenar la URI de la imagen
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +65,8 @@ class PerfilFragment : Fragment() {
         btnGuardar = view.findViewById(R.id.btnGuardar)
         btnMostrar = view.findViewById(R.id.btnMostrar)
         btnEliminar = view.findViewById(R.id.btnEliminar)
+        imgPerfil = view.findViewById(R.id.imgPerfil)
+
 
         // Listener para cerrar sesión
         btnCerrarSesion.setOnClickListener {
@@ -91,7 +99,7 @@ class PerfilFragment : Fragment() {
             val nombre = txNombre.text.toString()
             val apellidos = txApellidos.text.toString()
             val hobbies = txHobbies.text.toString()
-            val avatar = "url_o_ruta_del_avatar"
+            val imagen = ""
 
 
 
@@ -100,7 +108,7 @@ class PerfilFragment : Fragment() {
                 nombre = nombre,
                 apellidos = apellidos,
                 hobbies = hobbies,
-                avatar = avatar
+                imagenUrl = imagen
             )
 
             // Guarda los datos en la colección "users" usando el UID del usuario como el ID del documento

@@ -6,7 +6,7 @@
     android:padding="16dp">
 
     <ImageView
-        android:id="@+id/imgAvatar"
+        android:id="@+id/imgPerfil"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="16dp" />

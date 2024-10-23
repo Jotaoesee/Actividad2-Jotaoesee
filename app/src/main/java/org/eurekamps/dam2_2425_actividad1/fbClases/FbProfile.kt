@@ -6,5 +6,5 @@ data class FbProfile(
     val nombre: String? = null,
     val apellidos: String? = null,
     val hobbies: String? = null,
-    val avatar: String? = null
+    val imagenUrl: String?
 )
