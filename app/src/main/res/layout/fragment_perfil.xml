@@ -65,24 +65,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txApellidosPerfil" />
 
-        <EditText
-            android:id="@+id/txNumeroPerfil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
-            android:layout_marginTop="24dp"
-            android:padding="16dp"
-            android:minHeight="60dp"
-            android:background="@drawable/border_edit_text"
-            android:paddingStart="10dp"
-            android:fontFamily="@font/simple_cake"
-            android:ems="10"
-            android:inputType="text"
-            android:textColorHint="@color/azul"
-            android:hint="@string/tel_fono_movil"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txEdadPerfil" />
-
         <Button
             android:id="@+id/btnCerrarSesion"
             android:layout_width="wrap_content"
@@ -98,10 +80,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="156dp"
-            android:layout_marginTop="28dp"
             android:text="Guardar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txNumeroPerfil" />
+            tools:layout_editor_absoluteY="381dp" />
 
         <Button
             android:id="@+id/btnMostrar"
