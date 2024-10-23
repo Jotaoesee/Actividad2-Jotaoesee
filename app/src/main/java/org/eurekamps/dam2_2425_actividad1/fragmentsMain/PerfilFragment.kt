@@ -56,7 +56,6 @@ class PerfilFragment : Fragment() {
         txNombre = view.findViewById(R.id.txNombrePerfil)
         txApellidos = view.findViewById(R.id.txApellidosPerfil)
         txEdad = view.findViewById(R.id.txEdadPerfil)
-        txNumero = view.findViewById(R.id.txNumeroPerfil)
         btnCerrarSesion = view.findViewById(R.id.btnCerrarSesion)
         btnGuardar = view.findViewById(R.id.btnGuardar)
         btnMostrar = view.findViewById(R.id.btnMostrar)
