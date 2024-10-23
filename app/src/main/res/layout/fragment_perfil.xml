@@ -11,12 +11,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/imgPerfil"
+            android:layout_width="138dp"
+            android:layout_height="129dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="32dp"
+            android:src="@drawable/perfil_bici"
+            app:layout_constraintBottom_toTopOf="@+id/txNombrePerfil"
+            app:layout_constraintEnd_toStartOf="@+id/btnSeleccionarImagen"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnSeleccionarImagen"
+            android:layout_width="123dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="104dp"
+            android:text="Seleccionar Imagen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/txNombrePerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
-            android:layout_marginTop="216dp"
+            android:layout_marginStart="84dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="106dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/border_edit_text"
             android:ems="10"
             android:fontFamily="@font/simple_cake"
@@ -24,17 +50,20 @@
             android:inputType="text"
             android:minHeight="60dp"
             android:padding="16dp"
-            android:paddingStart="10dp"
             android:textColorHint="@color/azul"
+            app:layout_constraintBottom_toTopOf="@+id/txApellidosPerfil"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imgPerfil" />
 
         <EditText
             android:id="@+id/txApellidosPerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginEnd="98dp"
+            android:layout_marginBottom="25dp"
             android:background="@drawable/border_edit_text"
             android:ems="10"
             android:fontFamily="@font/simple_cake"
@@ -42,8 +71,10 @@
             android:inputType="text"
             android:minHeight="60dp"
             android:padding="16dp"
-            android:paddingStart="10dp"
             android:textColorHint="@color/azul"
+            app:layout_constraintBottom_toTopOf="@+id/txHobbies"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txNombrePerfil" />
 
@@ -52,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginBottom="14dp"
             android:background="@drawable/border_edit_text"
             android:ems="10"
             android:fontFamily="@font/simple_cake"
@@ -60,10 +91,10 @@
             android:inputType="text"
             android:minHeight="60dp"
             android:padding="16dp"
-            android:paddingStart="10dp"
             android:textColorHint="@color/azul"
+            app:layout_constraintBottom_toTopOf="@+id/btnGuardar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txApellidosPerfil" />
+            app:layout_constraintTop_toBottomOf="@id/txApellidosPerfil" />
 
         <Button
             android:id="@+id/btnCerrarSesion"
@@ -73,7 +104,7 @@
             android:layout_marginTop="12dp"
             android:text="@string/cerrar_sesi_n"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnEliminar" />
+            app:layout_constraintTop_toBottomOf="@id/btnEliminar" />
 
         <Button
             android:id="@+id/btnGuardar"
@@ -81,13 +112,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
             android:layout_marginTop="14dp"
-            android:layout_marginEnd="163dp"
-            android:layout_marginBottom="12dp"
             android:text="Guardar"
             app:layout_constraintBottom_toTopOf="@+id/btnMostrar"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txHobbies" />
+            app:layout_constraintTop_toBottomOf="@id/txHobbies" />
 
         <Button
             android:id="@+id/btnMostrar"
@@ -97,7 +127,7 @@
             android:layout_marginTop="12dp"
             android:text="Mostrar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnGuardar" />
+            app:layout_constraintTop_toBottomOf="@id/btnGuardar" />
 
         <Button
             android:id="@+id/btnEliminar"
@@ -107,21 +137,7 @@
             android:layout_marginTop="12dp"
             android:text="Eliminar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnMostrar" />
-
-        <ImageView
-            android:id="@+id/imgPerfil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="139dp"
-            android:layout_marginTop="37dp"
-            android:layout_marginEnd="144dp"
-            android:layout_marginBottom="51dp"
-            app:layout_constraintBottom_toTopOf="@+id/txNombrePerfil"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            app:layout_constraintTop_toBottomOf="@id/btnMostrar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -91,6 +91,7 @@ class PerfilFragment : Fragment() {
             val nombre = txNombre.text.toString()
             val apellidos = txApellidos.text.toString()
             val hobbies = txHobbies.text.toString()
+            val avatar = "url_o_ruta_del_avatar"
 
 
 
@@ -98,8 +99,8 @@ class PerfilFragment : Fragment() {
             val perfilData = FbProfile(
                 nombre = nombre,
                 apellidos = apellidos,
-                hobbies = hobbies
-
+                hobbies = hobbies,
+                avatar = avatar
             )
 
             // Guarda los datos en la colección "users" usando el UID del usuario como el ID del documento
