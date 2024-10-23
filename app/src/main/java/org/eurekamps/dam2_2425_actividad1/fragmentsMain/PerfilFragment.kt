@@ -28,8 +28,7 @@ class PerfilFragment : Fragment() {
     // Declaración de las vistas
     lateinit var txNombre: EditText
     lateinit var txApellidos: EditText
-    lateinit var txEdad: EditText
-    lateinit var txNumero: EditText
+    lateinit var txHobbies: EditText
     lateinit var btnCerrarSesion: Button
     lateinit var btnGuardar: Button
     lateinit var btnMostrar: Button
@@ -55,7 +54,7 @@ class PerfilFragment : Fragment() {
         // Inicialización de las vistas
         txNombre = view.findViewById(R.id.txNombrePerfil)
         txApellidos = view.findViewById(R.id.txApellidosPerfil)
-        txEdad = view.findViewById(R.id.txEdadPerfil)
+        txHobbies = view.findViewById(R.id.txHobbies)
         btnCerrarSesion = view.findViewById(R.id.btnCerrarSesion)
         btnGuardar = view.findViewById(R.id.btnGuardar)
         btnMostrar = view.findViewById(R.id.btnMostrar)
@@ -91,15 +90,16 @@ class PerfilFragment : Fragment() {
             // Obtiene los datos de los campos de texto
             val nombre = txNombre.text.toString()
             val apellidos = txApellidos.text.toString()
-            val edad = txEdad.text.toString().toIntOrNull() // Convierte la edad a entero
-            val telefono = txNumero.text.toString()
+            val hobbies = txHobbies.text.toString()
+
+
 
             // Crea un objeto de la clase FbProfile con los datos ingresados
             val perfilData = FbProfile(
                 nombre = nombre,
                 apellidos = apellidos,
-                edad = edad,
-                telefono = telefono
+                hobbies = hobbies
+
             )
 
             // Guarda los datos en la colección "users" usando el UID del usuario como el ID del documento
@@ -134,9 +134,7 @@ class PerfilFragment : Fragment() {
                         // Si el documento existe, muestra los datos en los campos correspondientes
                         txNombre.setText(document.getString("nombre"))
                         txApellidos.setText(document.getString("apellidos"))
-                        txEdad.setText(document.getLong("edad")?.toString())
-                        txNumero.setText(document.getString("telefono"))
-
+                        txHobbies.setText(document.getLong("edad")?.toString())
                         Toast.makeText(requireContext(), "Perfil recuperado exitosamente.", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(requireContext(), "No se encontró el perfil.", Toast.LENGTH_SHORT).show()
@@ -163,8 +161,7 @@ class PerfilFragment : Fragment() {
                     // Limpia los campos de texto después de eliminar el perfil
                     txNombre.setText("")
                     txApellidos.setText("")
-                    txEdad.setText("")
-                    txNumero.setText("")
+                    txHobbies.setText("")
 
                     Toast.makeText(requireContext(), "Perfil eliminado exitosamente.", Toast.LENGTH_SHORT).show()
                 }
