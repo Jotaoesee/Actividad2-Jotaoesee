@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +31,7 @@ class ProfilesFragment : Fragment() {
     // Lista mutable que almacena los perfiles recuperados
     private val profilesList = mutableListOf<FbProfile>()
     // Botón para cerrar sesión
-    private lateinit var btnCerrarProfiles : Button
+    private lateinit var btnCerrarProfiles: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +68,6 @@ class ProfilesFragment : Fragment() {
             requireActivity().startActivity(intent)
             requireActivity().finish() // Finaliza la actividad actual
         }
-
     }
 
     // Función para recuperar los perfiles desde Firestore y actualizarlos en el RecyclerView
@@ -89,10 +89,16 @@ class ProfilesFragment : Fragment() {
                 }
                 // Notifica al adaptador que los datos han cambiado para actualizar el RecyclerView
                 profilesAdapter.notifyDataSetChanged()
+
+                // Si la lista está vacía, muestra un mensaje al usuario
+                if (profilesList.isEmpty()) {
+                    Toast.makeText(requireContext(), "No hay perfiles disponibles.", Toast.LENGTH_SHORT).show()
+                }
             }
             .addOnFailureListener { e ->
                 // Log de error en caso de fallo al recuperar los datos
                 Log.e("ProfilesFragment", "Error fetching profiles: ", e)
+                Toast.makeText(requireContext(), "Error al recuperar perfiles.", Toast.LENGTH_SHORT).show()
             }
     }
 }

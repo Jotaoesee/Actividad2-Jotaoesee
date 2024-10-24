@@ -10,31 +10,31 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import org.eurekamps.dam2_2425_actividad1.R
-import org.eurekamps.dam2_2425_actividad1.statics.DataHolder
-
+import org.eurekamps.dam2_2425_actividad1.viewmodels.PerfilViewModel
 
 class LoginFragment : Fragment() {
 
     // Declaración de vistas
-    lateinit var txEmail: EditText
-    lateinit var txContraseña: EditText
-    lateinit var txInicioSesion: TextView
-    lateinit var btnLogin: Button
-    lateinit var btnRegistrar: Button
+    private lateinit var txEmail: EditText
+    private lateinit var txContraseña: EditText
+    private lateinit var txInicioSesion: TextView
+    private lateinit var btnLogin: Button
+    private lateinit var btnRegistrar: Button
 
     // FirebaseAuth para autenticación de usuarios
     private lateinit var auth: FirebaseAuth
+    // ViewModel para manejar el perfil
+    private val perfilViewModel: PerfilViewModel by viewModels()
 
-    // Inicializa FirebaseAuth en la creación del fragmento
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Obtener instancia de FirebaseAuth
         auth = FirebaseAuth.getInstance()
     }
 
@@ -45,65 +45,70 @@ class LoginFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
-    // Método llamado cuando la vista ha sido creada
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicialización de vistas
         txEmail = view.findViewById(R.id.txEmailRegistro)
         txContraseña = view.findViewById(R.id.txContraseñaRegistro)
         txInicioSesion = view.findViewById(R.id.txInicio)
         btnLogin = view.findViewById(R.id.btnLogin)
         btnRegistrar = view.findViewById(R.id.btnRegistrarRegistro)
 
-        // Listener para el botón de login
         btnLogin.setOnClickListener {
-            Log.d("LoginFragment", "Login button clicked") // Log para depuración
-            val email = txEmail.text.toString().trim() // Obtener y limpiar el texto del email
-            val contrasenia = txContraseña.text.toString().trim() // Obtener y limpiar el texto de la contraseña
+            val email = txEmail.text.toString().trim()
+            val contrasenia = txContraseña.text.toString().trim()
 
-            // Validaciones de email y contraseña
             if (email.isEmpty()) {
-                // Verifica si el campo email está vacío
                 Toast.makeText(requireContext(), "Por favor, introduce un correo electrónico.", Toast.LENGTH_SHORT).show()
             } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                // Verifica si el email tiene un formato válido
                 Toast.makeText(requireContext(), "Formato de correo electrónico inválido.", Toast.LENGTH_SHORT).show()
             } else if (contrasenia.isEmpty()) {
-                // Verifica si el campo de la contraseña está vacío
                 Toast.makeText(requireContext(), "Por favor, introduce una contraseña.", Toast.LENGTH_SHORT).show()
             } else {
-                // Si todo es correcto, llama a la función para iniciar sesión
                 iniciarSesion(email, contrasenia)
             }
         }
 
-        // Listener para el botón de registro, navega al fragmento de registro
         btnRegistrar.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registroFragment)
         }
+
+        // Observa los cambios en el perfil desde el ViewModel
+        perfilViewModel.perfil.observe(viewLifecycleOwner) { perfil ->
+            // Aquí puedes manejar el perfil si es necesario
+        }
     }
 
-    // Función para iniciar sesión con email y contraseña en Firebase
     private fun iniciarSesion(email: String, contrasenia: String) {
-        // Inicia sesión con Firebase Authentication
+        btnLogin.isEnabled = false
         auth.signInWithEmailAndPassword(email, contrasenia)
             .addOnCompleteListener(requireActivity()) { task ->
+                btnLogin.isEnabled = true
                 if (task.isSuccessful) {
-                    // Si el inicio de sesión es exitoso, muestra un mensaje y navega al perfil
                     Toast.makeText(requireContext(), "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                    DataHolder.descargarPerfil(requireActivity(), findNavController(), R.id.action_loginFragment_to_perfilFragment)
+                    // Descarga el perfil usando el ID del usuario
+                    val userId = auth.currentUser?.uid
+                    if (userId != null) {
+                        perfilViewModel.descargarPerfil(userId)
+                    }
+
+                    // Navega a PerfilFragment o donde sea necesario
+                    findNavController().navigate(R.id.action_loginFragment_to_perfilFragment)
+
                 } else {
-                    // Maneja los errores en caso de fallo en la autenticación
                     val errorMessage = when (task.exception) {
                         is FirebaseAuthInvalidUserException -> "El correo electrónico no está registrado."
                         is FirebaseAuthInvalidCredentialsException -> "La contraseña es incorrecta."
                         is FirebaseAuthException -> "Error: ${task.exception?.message}"
                         else -> "Error desconocido."
                     }
-                    // Muestra el mensaje de error al usuario
                     Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                 }
+            }
+            .addOnFailureListener { exception ->
+                btnLogin.isEnabled = true
+                Log.e("LoginFragment", "Error during login", exception)
+                Toast.makeText(requireContext(), "Error en la autenticación. Intenta nuevamente.", Toast.LENGTH_SHORT).show()
             }
     }
 }

@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
-        android:name="SplashFragment"
+        android:name="org.eurekamps.dam2_2425_actividad1.fragmentsMain.SplashFragment"
         android:label="SplashFragment" >
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"

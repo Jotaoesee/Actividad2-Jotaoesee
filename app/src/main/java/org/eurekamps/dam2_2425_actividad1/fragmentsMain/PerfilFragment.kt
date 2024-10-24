@@ -35,6 +35,7 @@ class PerfilFragment : Fragment() {
     lateinit var btnGuardar: Button
     lateinit var btnMostrar: Button
     lateinit var btnEliminar: Button
+    lateinit var btnIrProfiles: Button
     lateinit var imgPerfil: ImageView
 
     private var imageUri: Uri? = null // Variable para almacenar la URI de la imagen
@@ -65,8 +66,15 @@ class PerfilFragment : Fragment() {
         btnGuardar = view.findViewById(R.id.btnGuardar)
         btnMostrar = view.findViewById(R.id.btnMostrar)
         btnEliminar = view.findViewById(R.id.btnEliminar)
+        btnIrProfiles = view.findViewById(R.id.btnIrProfiles)
         imgPerfil = view.findViewById(R.id.imgPerfil)
 
+        // Configura el clic del botón para ir a ProfilesFragment
+        btnIrProfiles.setOnClickListener {
+            val intent = Intent(requireActivity(), HomeActivity::class.java)
+            requireActivity().startActivity(intent)
+            requireActivity().finish()
+        }
 
         // Listener para cerrar sesión
         btnCerrarSesion.setOnClickListener {

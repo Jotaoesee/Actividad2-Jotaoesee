@@ -60,5 +60,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-firestore-ktx:24.6.0")
     implementation ("com.squareup.picasso:picasso:2.8")
     implementation ("com.google.firebase:firebase-storage-ktx:20.2.0")
+    implementation ("androidx.appcompat:appcompat:1.5.0")
+    implementation ("androidx.fragment:fragment:1.8.4")
 
 }
