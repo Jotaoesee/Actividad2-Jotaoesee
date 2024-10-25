@@ -17,7 +17,7 @@ class ProfileAdapter(private var profilesList: MutableList<FbProfile>) :
         val tvNombre: TextView = itemView.findViewById(R.id.tvNombre)
         val tvApellido: TextView = itemView.findViewById(R.id.tvApellido)
         val tvHobbies: TextView = itemView.findViewById(R.id.tvHobbie)
-        val imgPerfil: ImageView = itemView.findViewById(R.id.imgPerfil)
+        val imgPerfil: ImageView = itemView.findViewById(R.id.list_cell_ivAvatar)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {

@@ -1,44 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list1_cell_raiz"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvHobbie"
+        android:layout_width="184dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginEnd="39dp"
+        android:padding="8dp"
+        android:text="Hobbies:"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/list_cell_ivAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/tvApellido" />
+
+    <TextView
+        android:id="@+id/tvApellido"
+        android:layout_width="184dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginEnd="39dp"
+        android:padding="8dp"
+        android:text="Apellidos:"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/list_cell_ivAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/tvNombre" />
 
     <ImageView
-        android:id="@+id/imgPerfil"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp" />
+        android:id="@+id/list_cell_ivAvatar"
+        android:layout_width="161dp"
+        android:layout_height="143dp"
+        android:layout_margin="8dp"
+        android:layout_marginEnd="20dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/tvHobbie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+    <TextView
+        android:id="@+id/tvNombre"
+        android:layout_width="184dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="39dp"
+        android:padding="8dp"
+        android:text="Nombre:"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/list_cell_ivAvatar"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvNombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:fontFamily="@font/simple_cake"
-            android:textColor="@color/azul" />
-
-        <TextView
-            android:id="@+id/tvApellido"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/azul"
-            android:fontFamily="@font/simple_cake"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tvHobbie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/azul"
-            android:fontFamily="@font/simple_cake"
-            android:textSize="16sp" />
-    </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
