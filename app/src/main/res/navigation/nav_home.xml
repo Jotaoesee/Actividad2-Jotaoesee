@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_home"
     app:startDestination="@id/profilesFragment">
     <fragment
@@ -8,11 +9,21 @@
         android:name="org.eurekamps.dam2_2425_actividad1.fragmentsHome.ProfilesFragment"
         android:label="ProfilesFragment" >
         <action
-            android:id="@+id/action_profilesFragment_to_fotoPerfilFragment"
+            android:id="@+id/action_profilesFragment_to_seleccionProfileFragment"
+            app:destination="@id/seleccionProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/seleccionProfileFragment"
+        android:name="org.eurekamps.dam2_2425_actividad1.home_fragments.SeleccionProfileFragment"
+        android:label="fragment_seleccion_profile"
+        tools:layout="@layout/fragment_seleccion_profile" >
+        <action
+            android:id="@+id/action_seleccionProfileFragment_to_fotoPerfilFragment"
             app:destination="@id/fotoPerfilFragment" />
     </fragment>
     <fragment
         android:id="@+id/fotoPerfilFragment"
         android:name="org.eurekamps.dam2_2425_actividad1.home_fragments.FotoPerfilFragment"
-        android:label="FotoPerfilFragment" />
+        android:label="fragment_foto_perfil"
+        tools:layout="@layout/fragment_foto_perfil" />
 </navigation>
