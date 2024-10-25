@@ -39,9 +39,45 @@ class FotoPerfilFragment : Fragment() {
         db = FirebaseFirestore.getInstance()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         // Cambia aquí el layout al correspondiente a este fragmento
         return inflater.inflate(R.layout.fragment_foto_perfil, container, false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        imageView = view.findViewById(R.id.imageView)
+
+        // Configura los botones para abrir la cámara y la galería
+        val btnCamera = view.findViewById<Button>(R.id.btnCamara)
+        val btnGallery = view.findViewById<Button>(R.id.btnGaleria)
+
+        btnCamera.setOnClickListener {
+            if (checkPermissions()) {
+                openCamera()
+            } else {
+                requestPermissions()
+            }
+        }
+
+        btnGallery.setOnClickListener {
+            if (checkPermissions()) {
+                openGallery()
+            } else {
+                requestPermissions()
+            }
+        }
+
+        // Observa los cambios en la URL de la imagen de perfil
+        profileViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
+            Log.d("FotoPerfilFragment", "Image URL updated: $imageUrl")
+            // Aquí puedes manejar la URL de la imagen si es necesario
+        }
     }
 
     // ActivityResultLauncher for capturing a picture from the camera
@@ -110,38 +146,6 @@ class FotoPerfilFragment : Fragment() {
                     showToast("Error retrieving download URL")
                 }
             }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view)
-
-        imageView = view.findViewById(R.id.imageView)
-
-        // Configura los botones para abrir la cámara y la galería
-        val btnCamera = view.findViewById<Button>(R.id.btnCamara)
-        val btnGallery = view.findViewById<Button>(R.id.btnGaleria)
-
-        btnCamera.setOnClickListener {
-            if (checkPermissions()) {
-                openCamera()
-            } else {
-                requestPermissions()
-            }
-        }
-
-        btnGallery.setOnClickListener {
-            if (checkPermissions()) {
-                openGallery()
-            } else {
-                requestPermissions()
-            }
-        }
-
-        // Observa los cambios en la URL de la imagen de perfil
-        profileViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
-            Log.d("FotoPerfilFragment", "Image URL updated: $imageUrl")
-            // Aquí puedes manejar la URL de la imagen si es necesario
-        }
     }
 
     // Function to open the camera

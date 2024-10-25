@@ -21,4 +21,8 @@
     <string name="cerrar_sesi_n">Cerrar Sesión</string>
     <string name="lista_de_perfiles">Lista de Perfiles</string>
     <string name="profiles">Profiles</string>
+    <string name="nombre_seleccion">Nombre:</string>
+    <string name="apellidos_seleccion">Apellidos:</string>
+    <string name="hobbies_seleccion">Hobbies:</string>
+    <string name="editar_foto_seleccion">Editar Foto</string>
 </resources>

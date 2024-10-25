@@ -32,8 +32,7 @@ class SeleccionProfileFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view)
-
+        super.onViewCreated(view, savedInstanceState)
         // Observar cambios en la URL de la imagen del perfil
         profileViewModel.profileImageUrl.observe(viewLifecycleOwner) { url ->
             if (url != null) {
