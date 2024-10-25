@@ -28,19 +28,22 @@ class ProfileAdapter(private var profilesList: MutableList<FbProfile>) :
 
     override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
         val profile = profilesList[position]
+
         holder.tvNombre.text = profile.nombre ?: "Nombre no disponible"
         holder.tvApellido.text = profile.apellidos ?: "Apellido no disponible"
         holder.tvHobbies.text = profile.hobbies ?: "Hobbies no disponibles"
 
-        // Cargar la imagen usando Picasso
-        profile.imagenUrl?.let { url ->
+        val imageUrl = profile.imagenUrl
+
+        // Verifica si la URL de la imagen no es nula ni vacía antes de cargar con Picasso
+        if (!imageUrl.isNullOrEmpty()) {
             Picasso.get()
-                .load(url)
-                .placeholder(R.drawable.registro_bici)
-                .error(R.drawable.registro_bici)
+                .load(imageUrl)
+                .placeholder(R.drawable.registro_bici) // Imagen mientras carga
+                .error(R.drawable.registro_bici) // Imagen en caso de error
                 .into(holder.imgPerfil)
-        } ?: run {
-            // Establecer una imagen predeterminada en caso de que no haya URL
+        } else {
+            // Establecer una imagen predeterminada si la URL es nula o vacía
             holder.imgPerfil.setImageResource(R.drawable.registro_bici)
         }
     }

@@ -12,12 +12,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import org.eurekamps.dam2_2425_actividad1.HomeActivity
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.fbClases.FbProfile
+import org.eurekamps.dam2_2425_actividad1.viewmodels.PerfilViewModel
 
 class PerfilFragment : Fragment() {
 
@@ -37,6 +39,9 @@ class PerfilFragment : Fragment() {
     lateinit var btnEliminar: Button
     lateinit var btnIrProfiles: Button
     lateinit var imgPerfil: ImageView
+
+    private val perfilViewModel: PerfilViewModel by viewModels()
+
 
     private var imageUri: Uri? = null // Variable para almacenar la URI de la imagen
 
@@ -84,110 +89,57 @@ class PerfilFragment : Fragment() {
 
         // Listener para guardar perfil
         btnGuardar.setOnClickListener {
-            guardarPerfil() // Llama a la función que guarda el perfil
+            val perfilData = FbProfile(
+                nombre = txNombre.text.toString(),
+                apellidos = txApellidos.text.toString(),
+                hobbies = txHobbies.text.toString(),
+                imagenUrl = "" // Agrega lógica de imagen según sea necesario
+            )
+            perfilViewModel.guardarPerfil(perfilData) { success ->
+                if (success) {
+                    Toast.makeText(requireContext(), "Perfil guardado con éxito", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Error al guardar el perfil", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
+
 
         // Listener para eliminar perfil
         btnEliminar.setOnClickListener {
-            eliminarPerfil() // Llama a la función que elimina el perfil
+            perfilViewModel.eliminarPerfil { success ->
+                if (success) {
+                    Toast.makeText(requireContext(), "Perfil eliminado con éxito", Toast.LENGTH_SHORT).show()
+                    txNombre.text.clear()
+                    txApellidos.text.clear()
+                    txHobbies.text.clear()
+                } else {
+                    Toast.makeText(requireContext(), "Error al eliminar el perfil", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
+
 
         // Listener para mostrar el perfil guardado
+        // Observa el perfil almacenado en el ViewModel
+        perfilViewModel.perfil.observe(viewLifecycleOwner) { perfil ->
+            perfil?.let {
+                txNombre.setText(it.nombre)
+                txApellidos.setText(it.apellidos)
+                txHobbies.setText(it.hobbies)
+            } ?: Toast.makeText(requireContext(), "No se encontró perfil.", Toast.LENGTH_SHORT).show()
+        }
+
+        // Llama a recuperarPerfil cuando presionen "Mostrar"
         btnMostrar.setOnClickListener {
-            recuperarPerfil() // Llama a la función que recupera los datos del perfil
+            perfilViewModel.recuperarPerfil()
         }
-    }
-
-    // Función para guardar el perfil en Firebase Firestore
-    private fun guardarPerfil() {
-        val uid = auth.currentUser?.uid // Obtiene el UID del usuario autenticado
-
-        if (uid != null) {
-            // Obtiene los datos de los campos de texto
-            val nombre = txNombre.text.toString()
-            val apellidos = txApellidos.text.toString()
-            val hobbies = txHobbies.text.toString()
-            val imagen = ""
 
 
-
-            // Crea un objeto de la clase FbProfile con los datos ingresados
-            val perfilData = FbProfile(
-                nombre = nombre,
-                apellidos = apellidos,
-                hobbies = hobbies,
-                imagenUrl = imagen
-            )
-
-            // Guarda los datos en la colección "users" usando el UID del usuario como el ID del documento
-            db.collection("users").document(uid) // Documento con el UID como ID
-                .set(perfilData)
-                .addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Perfil guardado exitosamente.", Toast.LENGTH_SHORT).show()
-                    // Navega a la actividad principal después de guardar el perfil
-                    val intent = Intent(requireActivity(), HomeActivity::class.java)
-                    requireActivity().startActivity(intent)
-                    requireActivity().finish()
-                }
-                .addOnFailureListener { e ->
-                    // Muestra un error si la operación falla
-                    Toast.makeText(requireContext(), "Error al guardar perfil: ${e.message}", Toast.LENGTH_SHORT).show()
-                    Log.e("PerfilFragment", "Error al guardar perfil", e)
-                }
-        } else {
-            Toast.makeText(requireContext(), "Error: No se ha encontrado el usuario autenticado.", Toast.LENGTH_SHORT).show()
+        // Llama a recuperarPerfil cuando presionen "Mostrar"
+        btnMostrar.setOnClickListener {
+            perfilViewModel.recuperarPerfil()
         }
-    }
 
-    // Función para recuperar el perfil del usuario desde Firestore
-    private fun recuperarPerfil() {
-        val uid = auth.currentUser?.uid // Obtiene el UID del usuario autenticado
-
-        if (uid != null) {
-            // Recupera los datos del perfil del documento del usuario
-            db.collection("users").document(uid).get()
-                .addOnSuccessListener { document ->
-                    if (document != null && document.exists()) {
-                        // Si el documento existe, muestra los datos en los campos correspondientes
-                        txNombre.setText(document.getString("nombre"))
-                        txApellidos.setText(document.getString("apellidos"))
-                        txHobbies.setText(document.getLong("edad")?.toString())
-                        Toast.makeText(requireContext(), "Perfil recuperado exitosamente.", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(requireContext(), "No se encontró el perfil.", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(requireContext(), "Error al recuperar perfil: ${e.message}", Toast.LENGTH_SHORT).show()
-                    Log.e("PerfilFragment", "Error al recuperar perfil", e)
-                }
-        } else {
-            Toast.makeText(requireContext(), "Error: No se ha encontrado el usuario autenticado.", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    // Función para eliminar el perfil del usuario de Firestore
-    private fun eliminarPerfil() {
-        val uid = auth.currentUser?.uid // Obtiene el UID del usuario autenticado
-
-        if (uid != null) {
-            // Elimina el documento del usuario en la colección "users"
-            db.collection("users").document(uid)
-                .delete()
-                .addOnSuccessListener {
-                    // Limpia los campos de texto después de eliminar el perfil
-                    txNombre.setText("")
-                    txApellidos.setText("")
-                    txHobbies.setText("")
-
-                    Toast.makeText(requireContext(), "Perfil eliminado exitosamente.", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(requireContext(), "Error al eliminar perfil: ${e.message}", Toast.LENGTH_SHORT).show()
-                    Log.e("PerfilFragment", "Error al eliminar perfil", e)
-                }
-        } else {
-            Toast.makeText(requireContext(), "Error: No se ha encontrado el usuario autenticado.", Toast.LENGTH_SHORT).show()
-        }
     }
 }
