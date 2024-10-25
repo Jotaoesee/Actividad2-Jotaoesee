@@ -1,195 +1,144 @@
-package org.eurekamps.dam2_2425_actividad1.home_fragments
+package org.eurekamps.dam2_2425_actividad1.fragmentsMain
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
+import org.eurekamps.dam2_2425_actividad1.HomeActivity
 import org.eurekamps.dam2_2425_actividad1.R
-import org.eurekamps.dam2_2425_actividad1.viewmodel.ProfileViewModel
-import java.io.ByteArrayOutputStream
+import org.eurekamps.dam2_2425_actividad1.fbClases.FbProfile
+import org.eurekamps.dam2_2425_actividad1.viewmodels.PerfilViewModel
 
-class FotoPerfilFragment : Fragment() {
+class PerfilFragment : Fragment() {
 
-    private lateinit var imageView: ImageView
-    private val profileViewModel: ProfileViewModel by viewModels() // Inicializa el ViewModel
-    private val firebaseStorage = FirebaseStorage.getInstance()
-    private val storageRef = firebaseStorage.reference
-    private lateinit var db: FirebaseFirestore
+    // Instancia de Firestore para interactuar con la base de datos
+    private val db = FirebaseFirestore.getInstance()
+
+    // Instancia de FirebaseAuth para gestionar la autenticación
     private lateinit var auth: FirebaseAuth
 
-    // ActivityResultLauncher for capturing a picture from the camera
-    private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap: Bitmap? ->
-        bitmap?.let {
-            val scaledBitmap = scaleBitmap(it, imageView.width, imageView.height)
-            imageView.setImageBitmap(scaledBitmap)
-            subirImagen(scaledBitmap) // Pasa el bitmap escalado a subirImagen
-        } ?: run {
-            showToast("Failed to capture image")
-        }
-    }
+    // Declaración de las vistas
+    lateinit var txNombre: EditText
+    lateinit var txApellidos: EditText
+    lateinit var txHobbies: EditText
+    lateinit var btnCerrarSesion: Button
+    lateinit var btnGuardar: Button
+    lateinit var btnMostrar: Button
+    lateinit var btnEliminar: Button
+    lateinit var btnIrProfiles: Button
+    lateinit var imgPerfil: ImageView
 
-    // ActivityResultLauncher for picking an image from the gallery
-    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let {
-            try {
-                // Carga el bitmap de la URI y redimensiona
-                val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, it)
-                val scaledBitmap = scaleBitmap(bitmap, imageView.width, imageView.height)
-                imageView.setImageBitmap(scaledBitmap)
-                subirImagen(scaledBitmap) // Pasa el bitmap escalado a subirImagen
-            } catch (e: Exception) {
-                showToast("Error loading image: ${e.message}")
-            }
-        } ?: run {
-            showToast("Failed to select image")
-        }
-    }
+    private val perfilViewModel: PerfilViewModel by viewModels()
+
+
+    private var imageUri: Uri? = null // Variable para almacenar la URI de la imagen
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Inicializar FirebaseAuth
         auth = FirebaseAuth.getInstance()
-        db = Firebase.firestore
-    }
-
-    // Function to scale the bitmap
-    private fun scaleBitmap(bitmap: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
-        val ratio = Math.min(maxWidth.toFloat() / bitmap.width, maxHeight.toFloat() / bitmap.height)
-        val width = (bitmap.width * ratio).toInt()
-        val height = (bitmap.height * ratio).toInt()
-        return Bitmap.createScaledBitmap(bitmap, width, height, true)
-    }
-
-    fun subirImagen(bitmap: Bitmap) {
-        // Obtengo el UID del usuario
-        val userId = auth.currentUser?.uid ?: return
-
-        // Genera un nombre de archivo único
-        val fileName = "profile_pictures/${userId}_profile.jpg"
-        val profileImageRef = storageRef.child(fileName)
-
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data = baos.toByteArray()
-
-        val uploadTask = profileImageRef.putBytes(data)
-        uploadTask.addOnFailureListener {
-            showToast("Error uploading image")
-        }.addOnSuccessListener { taskSnapshot ->
-            taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
-                val downloadURL = uri.toString()
-                profileViewModel.setProfileImageUrl(downloadURL) // Actualiza el ViewModel con la URL
-                val profiles = db.collection("Profiles")
-
-                profiles.document(userId).update("strAvatarUrl", downloadURL)
-                    .addOnSuccessListener {
-                        findNavController().navigate(R.id.action_photoFragment_to_homeProfileFragment)
-                    }.addOnFailureListener {
-                        showToast("Error updating profile image URL")
-                    }
-            }.addOnFailureListener {
-                showToast("Error uploading image")
-            }
-        }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_photo_profile, container, false)
+        // Inflar el layout del fragmento
+        return inflater.inflate(R.layout.fragment_perfil, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view)
+        super.onViewCreated(view, savedInstanceState)
 
-        imageView = view.findViewById(R.id.imageView)
+        // Inicialización de las vistas
+        txNombre = view.findViewById(R.id.txNombrePerfil)
+        txApellidos = view.findViewById(R.id.txApellidosPerfil)
+        txHobbies = view.findViewById(R.id.txHobbies)
+        btnCerrarSesion = view.findViewById(R.id.btnCerrarSesion)
+        btnGuardar = view.findViewById(R.id.btnGuardar)
+        btnMostrar = view.findViewById(R.id.btnMostrar)
+        btnEliminar = view.findViewById(R.id.btnEliminar)
+        btnIrProfiles = view.findViewById(R.id.btnIrProfiles)
+        imgPerfil = view.findViewById(R.id.imgPerfil)
 
-        // Configura los botones para abrir la cámara y la galería
-        val btnCamara = view.findViewById<Button>(R.id.btnCamara)
-        val btnGaleria = view.findViewById<Button>(R.id.btnGalleria
+        // Configura el clic del botón para ir a ProfilesFragment
+        btnIrProfiles.setOnClickListener {
+            val intent = Intent(requireActivity(), HomeActivity::class.java)
+            requireActivity().startActivity(intent)
+            requireActivity().finish()
+        }
 
-        btnCamera.setOnClickListener {
-            if (checkPermissions()) {
-                openCamera()
-            } else {
-                requestPermissions()
+        // Listener para cerrar sesión
+        btnCerrarSesion.setOnClickListener {
+            auth.signOut() // Cierra la sesión de Firebase
+            findNavController().navigate(R.id.action_perfilFragment_to_loginFragment) // Navega al login
+        }
+
+        // Listener para guardar perfil
+        btnGuardar.setOnClickListener {
+            val perfilData = FbProfile(
+                nombre = txNombre.text.toString(),
+                apellidos = txApellidos.text.toString(),
+                hobbies = txHobbies.text.toString(),
+                imagenUrl = "" // Agrega lógica de imagen según sea necesario
+            )
+            perfilViewModel.guardarPerfil(perfilData) { success ->
+                if (success) {
+                    Toast.makeText(requireContext(), "Perfil guardado con éxito", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Error al guardar el perfil", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
-        btnGallery.setOnClickListener {
-            if (checkPermissions()) {
-                openGallery()
-            } else {
-                requestPermissions()
+
+        // Listener para eliminar perfil
+        btnEliminar.setOnClickListener {
+            perfilViewModel.eliminarPerfil { success ->
+                if (success) {
+                    Toast.makeText(requireContext(), "Perfil eliminado con éxito", Toast.LENGTH_SHORT).show()
+                    txNombre.text.clear()
+                    txApellidos.text.clear()
+                    txHobbies.text.clear()
+                } else {
+                    Toast.makeText(requireContext(), "Error al eliminar el perfil", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
-        // Observa los cambios en la URL de la imagen de perfil
-        profileViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
-            Log.d("FotoPerfilFragment", "Image URL updated: $imageUrl")
-            // Aquí puedes manejar la URL de la imagen si es necesario
+
+        // Listener para mostrar el perfil guardado
+        // Observa el perfil almacenado en el ViewModel
+        perfilViewModel.perfil.observe(viewLifecycleOwner) { perfil ->
+            perfil?.let {
+                txNombre.setText(it.nombre)
+                txApellidos.setText(it.apellidos)
+                txHobbies.setText(it.hobbies)
+            } ?: Toast.makeText(requireContext(), "No se encontró perfil.", Toast.LENGTH_SHORT).show()
         }
-    }
 
-    // Function to open the camera
-    private fun openCamera() {
-        takePictureLauncher.launch(null)
-    }
-
-    // Function to open the gallery
-    private fun openGallery() {
-        pickImageLauncher.launch("image/*")
-    }
-
-    // Check for necessary permissions
-    private fun checkPermissions(): Boolean {
-        val cameraPermission = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-        val storagePermission = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-        return cameraPermission == PackageManager.PERMISSION_GRANTED && storagePermission == PackageManager.PERMISSION_GRANTED
-    }
-
-    // ActivityResultLauncher for requesting permissions
-    private val requestPermissionsLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-        val cameraGranted = permissions[Manifest.permission.CAMERA] ?: false
-        val storageGranted = permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: false
-
-        if (cameraGranted && storageGranted) {
-            showToast("Permissions granted")
-        } else {
-            showToast("Permissions denied")
+        // Llama a recuperarPerfil cuando presionen "Mostrar"
+        btnMostrar.setOnClickListener {
+            perfilViewModel.recuperarPerfil()
         }
-    }
 
-    // Request necessary permissions using ActivityResultLauncher
-    private fun requestPermissions() {
-        requestPermissionsLauncher.launch(
-            arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
-        )
-    }
 
-    // Show toast message
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        // Llama a recuperarPerfil cuando presionen "Mostrar"
+        btnMostrar.setOnClickListener {
+            perfilViewModel.recuperarPerfil()
+        }
+
     }
 }
