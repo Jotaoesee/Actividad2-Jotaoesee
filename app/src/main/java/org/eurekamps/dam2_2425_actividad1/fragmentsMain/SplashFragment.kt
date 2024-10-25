@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import org.eurekamps.dam2_2425_actividad1.R
-import org.eurekamps.dam2_2425_actividad1.viewModel.SplashViewModel
+import org.eurekamps.dam2_2425_actividad1.viewModelMain.SplashViewModel
 
 class SplashFragment : Fragment() {
 

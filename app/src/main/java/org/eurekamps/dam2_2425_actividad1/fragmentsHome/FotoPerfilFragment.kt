@@ -8,9 +8,11 @@ import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
@@ -29,7 +31,7 @@ import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.viewmodel.ProfileViewModel
 import java.io.ByteArrayOutputStream
 
-class FotoPerfilFragment : Fragment() {
+class FotoPerfilFragment : Fragment(), OnClickListener {
 
     private lateinit var imageView: ImageView
     private val profileViewModel: ProfileViewModel by viewModels() // Inicializa el ViewModel
@@ -125,31 +127,9 @@ class FotoPerfilFragment : Fragment() {
 
         imageView = view.findViewById(R.id.imageView)
 
-        // Configura los botones para abrir la cámara y la galería
-        val btnCamara = view.findViewById<Button>(R.id.btnCamara)
-        val btnGaleria = view.findViewById<Button>(R.id.btnGalleria
-
-        btnCamera.setOnClickListener {
-            if (checkPermissions()) {
-                openCamera()
-            } else {
-                requestPermissions()
-            }
-        }
-
-        btnGallery.setOnClickListener {
-            if (checkPermissions()) {
-                openGallery()
-            } else {
-                requestPermissions()
-            }
-        }
-
-        // Observa los cambios en la URL de la imagen de perfil
-        profileViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
-            Log.d("FotoPerfilFragment", "Image URL updated: $imageUrl")
-            // Aquí puedes manejar la URL de la imagen si es necesario
-        }
+        // Set up buttons for opening camera and gallery
+        view.findViewById<Button>(R.id.btnCamera).setOnClickListener(this)
+        view.findViewById<Button>(R.id.btnGallery).setOnClickListener(this)
     }
 
     // Function to open the camera
@@ -191,5 +171,21 @@ class FotoPerfilFragment : Fragment() {
     // Show toast message
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onClick(p0: View?) {
+        if (p0?.id == R.id.btnCamera) {
+            if (checkPermissions()) {
+                openCamera()
+            } else {
+                requestPermissions()
+            }
+        } else if (p0?.id == R.id.btnGallery) {
+            if (checkPermissions()) {
+                openGallery()
+            } else {
+                requestPermissions()
+            }
+        }
     }
 }

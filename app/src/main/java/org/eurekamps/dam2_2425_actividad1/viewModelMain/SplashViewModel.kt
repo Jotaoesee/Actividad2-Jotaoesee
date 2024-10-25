@@ -1,4 +1,4 @@
-package org.eurekamps.dam2_2425_actividad1.viewModel
+package org.eurekamps.dam2_2425_actividad1.viewModelMain
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
