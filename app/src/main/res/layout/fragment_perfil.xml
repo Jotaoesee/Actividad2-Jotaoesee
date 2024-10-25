@@ -32,6 +32,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="104dp"
             android:text="Seleccionar Imagen"
+            android:fontFamily="@font/simple_cake"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -102,6 +103,7 @@
             android:layout_marginStart="140dp"
             android:layout_marginTop="4dp"
             android:text="@string/cerrar_sesi_n"
+            android:fontFamily="@font/simple_cake"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnIrProfiles" />
 
@@ -111,6 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
             android:text="Guardar"
+            android:fontFamily="@font/simple_cake"
             app:layout_constraintBottom_toTopOf="@+id/btnMostrar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -125,6 +128,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="33dp"
             android:text="@string/profiles"
+            android:fontFamily="@font/simple_cake"
             app:layout_constraintBottom_toTopOf="@+id/btnCerrarSesion"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnEliminar"
@@ -137,6 +141,7 @@
             android:layout_marginStart="156dp"
             android:layout_marginTop="12dp"
             android:text="Mostrar"
+            android:fontFamily="@font/simple_cake"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnGuardar" />
 
@@ -147,6 +152,7 @@
             android:layout_marginStart="160dp"
             android:layout_marginTop="12dp"
             android:text="Eliminar"
+            android:fontFamily="@font/simple_cake"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnMostrar" />
 
