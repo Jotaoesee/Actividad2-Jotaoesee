@@ -3,9 +3,6 @@ package org.eurekamps.dam2_2425_actividad1.home_fragments
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -20,11 +17,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.viewmodel.ProfileViewModel
@@ -39,15 +33,24 @@ class FotoPerfilFragment : Fragment() {
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // Cambia aquí el layout al correspondiente a este fragmento
+        return inflater.inflate(R.layout.fragment_foto_perfil, container, false)
+    }
+
     // ActivityResultLauncher for capturing a picture from the camera
     private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap: Bitmap? ->
         bitmap?.let {
             val scaledBitmap = scaleBitmap(it, imageView.width, imageView.height)
             imageView.setImageBitmap(scaledBitmap)
             subirImagen(scaledBitmap) // Pasa el bitmap escalado a subirImagen
-        } ?: run {
-            showToast("Failed to capture image")
-        }
+        } ?: showToast("Failed to capture image")
     }
 
     // ActivityResultLauncher for picking an image from the gallery
@@ -62,15 +65,7 @@ class FotoPerfilFragment : Fragment() {
             } catch (e: Exception) {
                 showToast("Error loading image: ${e.message}")
             }
-        } ?: run {
-            showToast("Failed to select image")
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        auth = FirebaseAuth.getInstance()
-        db = Firebase.firestore
+        } ?: showToast("Failed to select image")
     }
 
     // Function to scale the bitmap
@@ -93,31 +88,28 @@ class FotoPerfilFragment : Fragment() {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val data = baos.toByteArray()
 
-        val uploadTask = profileImageRef.putBytes(data)
-        uploadTask.addOnFailureListener {
-            showToast("Error uploading image")
-        }.addOnSuccessListener { taskSnapshot ->
-            taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
-                val downloadURL = uri.toString()
-                profileViewModel.setProfileImageUrl(downloadURL)
-                val profiles = db.collection("Profiles")
-
-                profiles.document(userId).update("strAvatarUrl", downloadURL)
-                    .addOnSuccessListener {
-                    }.addOnFailureListener {
-                        showToast("Error updating profile image URL")
-                    }
-            }.addOnFailureListener {
+        profileImageRef.putBytes(data)
+            .addOnFailureListener {
                 showToast("Error uploading image")
             }
-        }
-    }
+            .addOnSuccessListener { taskSnapshot ->
+                taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
+                    val downloadURL = uri.toString()
+                    profileViewModel.setProfileImageUrl(downloadURL)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_photo_profile, container, false)
+                    val profiles = db.collection("Profiles")
+                    profiles.document(userId).update("strAvatarUrl", downloadURL)
+                        .addOnSuccessListener {
+                            showToast("Profile image updated successfully!")
+                            // Navegar o realizar cualquier otra acción necesaria
+                        }
+                        .addOnFailureListener {
+                            showToast("Error updating profile image URL")
+                        }
+                }.addOnFailureListener {
+                    showToast("Error retrieving download URL")
+                }
+            }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
