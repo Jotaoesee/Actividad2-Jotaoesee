@@ -45,14 +45,15 @@ class FotoPerfilFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Cambia aquí el layout al correspondiente a este fragmento
         return inflater.inflate(R.layout.fragment_foto_perfil, container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         imageView = view.findViewById(R.id.imageView)
+
+        // Establecer la imagen predeterminada al iniciar
+        imageView.setImageResource(R.drawable.hombremujer)
 
         // Observa los cambios en la URL de la imagen de perfil
         profileViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
@@ -63,7 +64,7 @@ class FotoPerfilFragment : Fragment() {
                     .load(imageUrl)
                     .into(imageView)
             } else {
-                // Si no hay URL, puedes establecer una imagen por defecto
+                // Si no hay URL, puedes establecer la imagen por defecto
                 imageView.setImageResource(R.drawable.hombremujer)
             }
         }
@@ -89,13 +90,12 @@ class FotoPerfilFragment : Fragment() {
         }
     }
 
-
     // ActivityResultLauncher for capturing a picture from the camera
     private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap: Bitmap? ->
         bitmap?.let {
             val scaledBitmap = scaleBitmap(it, imageView.width, imageView.height)
             imageView.setImageBitmap(scaledBitmap)
-            subirImagen(scaledBitmap) // Pasa el bitmap escalado a subirImagen
+            subirImagen(scaledBitmap)
         } ?: showToast("Failed to capture image")
     }
 
@@ -107,7 +107,7 @@ class FotoPerfilFragment : Fragment() {
                 val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, it)
                 val scaledBitmap = scaleBitmap(bitmap, imageView.width, imageView.height)
                 imageView.setImageBitmap(scaledBitmap)
-                subirImagen(scaledBitmap) // Pasa el bitmap escalado a subirImagen
+                subirImagen(scaledBitmap)
             } catch (e: Exception) {
                 showToast("Error loading image: ${e.message}")
             }

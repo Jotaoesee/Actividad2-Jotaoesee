@@ -47,7 +47,7 @@ class SeleccionProfileFragment : Fragment() {
         btnEditarFoto = view.findViewById(R.id.editarFoto)
 
         // Establecer la imagen predeterminada al iniciar
-        imgSeleccionada.setImageResource(R.drawable.hombremujer) // Cambia esto por tu imagen
+        imgSeleccionada.setImageResource(R.drawable.hombremujer)
 
         // Observar cambios en la URL de la imagen del perfil
         profileViewModel.profileImageUrl.observe(viewLifecycleOwner) { url ->
@@ -56,14 +56,14 @@ class SeleccionProfileFragment : Fragment() {
                 Picasso.get().load(url).into(imgSeleccionada)
             } else {
                 // Si la URL es nula, mantener la imagen predeterminada
-                imgSeleccionada.setImageResource(R.drawable.hombremujer) // Cambia esto por tu imagen
+                imgSeleccionada.setImageResource(R.drawable.hombremujer)
             }
         }
 
         // Asignar los textos a los TextViews (debes manejar los demás campos en el ViewModel también si es necesario)
-        val perfilNombre = "Nombre del perfil" // Obtén el nombre del perfil según sea necesario
-        val perfilApellidos = "Apellidos del perfil" // Obtén los apellidos del perfil según sea necesario
-        val perfilHobbies = "Hobbies del perfil" // Obtén los hobbies del perfil según sea necesario
+        val perfilNombre = "Nombre del perfil"
+        val perfilApellidos = "Apellidos del perfil"
+        val perfilHobbies = "Hobbies del perfil"
 
         // Asignar valores a los TextViews
         txNombreUsuario.text = perfilNombre
