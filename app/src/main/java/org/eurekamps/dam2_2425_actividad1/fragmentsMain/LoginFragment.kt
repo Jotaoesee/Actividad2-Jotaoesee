@@ -1,5 +1,6 @@
 package org.eurekamps.dam2_2425_actividad1.fragmentsMain
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import org.eurekamps.dam2_2425_actividad1.HomeActivity
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.viewmodels.PerfilViewModel
 
@@ -93,8 +95,8 @@ class LoginFragment : Fragment() {
                     }
 
                     // Navega a PerfilFragment o donde sea necesario
-                    findNavController().navigate(R.id.action_loginFragment_to_perfilFragment)
-
+                    val intent = Intent(requireContext(), HomeActivity::class.java)
+                    startActivity(intent)
                 } else {
                     val errorMessage = when (task.exception) {
                         is FirebaseAuthInvalidUserException -> "El correo electrónico no está registrado."

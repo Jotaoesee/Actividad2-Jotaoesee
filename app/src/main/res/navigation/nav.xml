@@ -12,18 +12,6 @@
         <action
             android:id="@+id/action_loginFragment_to_registroFragment"
             app:destination="@id/registroFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_perfilFragment"
-            app:destination="@id/perfilFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/perfilFragment"
-        android:name="org.eurekamps.dam2_2425_actividad1.fragmentsMain.PerfilFragment"
-        android:label="fragment_perfil"
-        tools:layout="@layout/fragment_perfil" >
-        <action
-            android:id="@+id/action_perfilFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/registroFragment"
@@ -40,8 +28,5 @@
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_splashFragment_to_perfilFragment"
-            app:destination="@id/perfilFragment" />
     </fragment>
 </navigation>

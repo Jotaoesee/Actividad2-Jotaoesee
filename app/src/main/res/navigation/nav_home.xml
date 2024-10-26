@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_home"
-    app:startDestination="@id/profilesFragment">
+    app:startDestination="@id/perfilFragment">
     <fragment
         android:id="@+id/profilesFragment"
         android:name="org.eurekamps.dam2_2425_actividad1.fragmentsHome.ProfilesFragment"
@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_profilesFragment_to_seleccionProfileFragment"
             app:destination="@id/seleccionProfileFragment" />
+        <action
+            android:id="@+id/action_profilesFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
     </fragment>
     <fragment
         android:id="@+id/seleccionProfileFragment"
@@ -26,4 +29,13 @@
         android:name="org.eurekamps.dam2_2425_actividad1.home_fragments.FotoPerfilFragment"
         android:label="fragment_foto_perfil"
         tools:layout="@layout/fragment_foto_perfil" />
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="org.eurekamps.dam2_2425_actividad1.fragmentsHome.PerfilFragment"
+        android:label="fragment_perfil"
+        tools:layout="@layout/fragment_perfil" >
+        <action
+            android:id="@+id/action_perfilFragment_to_profilesFragment"
+            app:destination="@id/profilesFragment" />
+    </fragment>
 </navigation>

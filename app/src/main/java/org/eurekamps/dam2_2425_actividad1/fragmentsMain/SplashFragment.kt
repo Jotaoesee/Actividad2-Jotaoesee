@@ -1,5 +1,6 @@
 package org.eurekamps.dam2_2425_actividad1.fragmentsMain
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import org.eurekamps.dam2_2425_actividad1.HomeActivity
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.viewModelMain.SplashViewModel
 
@@ -36,9 +38,11 @@ class SplashFragment : Fragment() {
         // Observa el estado de autenticación
         vistaModeloSplash.usuarioAutenticado.observe(viewLifecycleOwner) { esAutenticado ->
             if (esAutenticado) {
-                // Si el usuario ya está autenticado, navega al PerfilFragment
+                // Si el usuario ya está autenticado, navega al HomeActivity
                 Log.d("SplashFragment", "Usuario autenticado")
-                findNavController().navigate(R.id.action_splashFragment_to_perfilFragment)
+                val intent = Intent(requireContext(), HomeActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
             } else {
                 // Si no hay usuario autenticado, navega al LoginFragment
                 Log.d("SplashFragment", "No hay usuario autenticado.")

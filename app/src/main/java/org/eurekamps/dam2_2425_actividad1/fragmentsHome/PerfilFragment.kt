@@ -1,4 +1,4 @@
-package org.eurekamps.dam2_2425_actividad1.fragmentsMain
+package org.eurekamps.dam2_2425_actividad1.fragmentsHome
 
 import android.content.Intent
 import android.net.Uri
@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import org.eurekamps.dam2_2425_actividad1.HomeActivity
+import org.eurekamps.dam2_2425_actividad1.MainActivity
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.fbClases.FbProfile
 import org.eurekamps.dam2_2425_actividad1.viewmodels.PerfilViewModel
@@ -75,16 +76,13 @@ class PerfilFragment : Fragment() {
 
         // Configura el clic del botón para ir a ProfilesFragment
         btnIrProfiles.setOnClickListener {
-            val intent = Intent(requireActivity(), HomeActivity::class.java)
-            requireActivity().startActivity(intent)
-            requireActivity().finish()
+            findNavController().navigate(R.id.action_perfilFragment_to_profilesFragment)
         }
 
         // Listener para cerrar sesión
         btnCerrarSesion.setOnClickListener {
             auth.signOut() // Cierra la sesión de Firebase
-            findNavController().navigate(R.id.action_perfilFragment_to_loginFragment) // Navega al login
-        }
+            val intent : Intent = Intent(requireActivity(), MainActivity::class.java)       }
 
         // Listener para guardar perfil
         btnGuardar.setOnClickListener {
