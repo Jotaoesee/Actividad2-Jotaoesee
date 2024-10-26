@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import org.eurekamps.dam2_2425_actividad1.MainActivity
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.fbClases.FbProfile
-import org.eurekamps.dam2_2425_actividad1.viewmodels.PerfilViewModel
+import org.eurekamps.dam2_2425_actividad1.viewModelHome.PerfilViewModel
 
 class PerfilFragment : Fragment() {
 

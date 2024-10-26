@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import org.eurekamps.dam2_2425_actividad1.HomeActivity
 import org.eurekamps.dam2_2425_actividad1.R
-import org.eurekamps.dam2_2425_actividad1.viewmodels.PerfilViewModel
+import org.eurekamps.dam2_2425_actividad1.viewModelHome.PerfilViewModel
 
 class LoginFragment : Fragment() {
 

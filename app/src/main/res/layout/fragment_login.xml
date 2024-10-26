@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="73dp"
             android:fontFamily="@font/simple_cake"
             android:text="@string/login"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,11 +59,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
-            android:layout_marginTop="84dp"
             android:fontFamily="@font/simple_cake"
             android:text="@string/registrar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txContraseñaRegistro" />
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
         <TextView
             android:id="@+id/txInicio"

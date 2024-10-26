@@ -17,7 +17,7 @@ import org.eurekamps.dam2_2425_actividad1.viewModelMain.SplashViewModel
 
 class SplashFragment : Fragment() {
 
-    private val vistaModeloSplash: SplashViewModel by viewModels()
+    private val SplashViewModel: SplashViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,11 +32,11 @@ class SplashFragment : Fragment() {
         // Usar un Handler para retrasar la ejecución y mostrar el Splash por 3 segundos
         Handler(Looper.getMainLooper()).postDelayed({
             // Verificar la autenticación del usuario
-            vistaModeloSplash.verificarAutenticacionUsuario()
+            SplashViewModel.verificarAutenticacionUsuario()
         }, 3000) // 3 segundos de espera
 
         // Observa el estado de autenticación
-        vistaModeloSplash.usuarioAutenticado.observe(viewLifecycleOwner) { esAutenticado ->
+        SplashViewModel.usuarioAutenticado.observe(viewLifecycleOwner) { esAutenticado ->
             if (esAutenticado) {
                 // Si el usuario ya está autenticado, navega al HomeActivity
                 Log.d("SplashFragment", "Usuario autenticado")

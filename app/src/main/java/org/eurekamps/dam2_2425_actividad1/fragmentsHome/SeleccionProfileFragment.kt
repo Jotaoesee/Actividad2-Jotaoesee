@@ -16,11 +16,11 @@ import org.eurekamps.dam2_2425_actividad1.viewmodel.ProfileViewModel
 
 class SeleccionProfileFragment : Fragment() {
 
-    lateinit var nombreUsuario: TextView
-    lateinit var apellidosUsuario: TextView
-    lateinit var hobbiesUsuario: TextView
-    lateinit var imagenSeleccionada: ImageView
-    lateinit var editarFoto: Button
+    lateinit var txNombreUsuario: TextView
+    lateinit var txApellidosUsuario: TextView
+    lateinit var txHobbiesUsuario: TextView
+    lateinit var imgSeleccionada: ImageView
+    lateinit var btnEditarFoto: Button
 
     // Obtener la instancia del ViewModel
     private val profileViewModel: ProfileViewModel by viewModels()
@@ -40,11 +40,15 @@ class SeleccionProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        nombreUsuario = view.findViewById(R.id.nombreUsuario)
-        apellidosUsuario = view.findViewById(R.id.apellidosUsuario)
-        hobbiesUsuario = view.findViewById(R.id.hobbiesUsuario)
-        imagenSeleccionada = view.findViewById(R.id.imagenSeleccionada)
-        editarFoto = view.findViewById(R.id.editarFoto)
+        txNombreUsuario = view.findViewById(R.id.nombreUsuario)
+        txApellidosUsuario = view.findViewById(R.id.apellidosUsuario)
+        txHobbiesUsuario = view.findViewById(R.id.hobbiesUsuario)
+        imgSeleccionada = view.findViewById(R.id.imagenSeleccionada)
+        btnEditarFoto = view.findViewById(R.id.editarFoto)
+
+        btnEditarFoto.setOnClickListener {
+            findNavController().navigate(R.id.action_seleccionProfileFragment_to_fotoPerfilFragment)
+        }
 
         // Observar cambios en la URL de la imagen del perfil
         profileViewModel.profileImageUrl.observe(viewLifecycleOwner) { url ->

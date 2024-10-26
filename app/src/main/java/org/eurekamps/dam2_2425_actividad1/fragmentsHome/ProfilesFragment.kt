@@ -53,7 +53,7 @@ class ProfilesFragment : Fragment() {
         // Inicializar el RecyclerView y configurar su layout manager
         recyclerProfiles = view.findViewById(R.id.listaPerfiles)
         btnCerrarProfiles = view.findViewById(R.id.btnCerrarProfiles)
-        btnIrAPerfil = view.findViewById(R.id.btnIrAPerfil)
+        btnIrAPerfil = view.findViewById(R.id.btnIrPerfil)
         recyclerProfiles.layoutManager = LinearLayoutManager(requireContext())
 
         // Inicializar el adaptador del RecyclerView con la lista vacía de perfiles
