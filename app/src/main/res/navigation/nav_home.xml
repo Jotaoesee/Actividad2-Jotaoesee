@@ -28,7 +28,11 @@
         android:id="@+id/fotoPerfilFragment"
         android:name="org.eurekamps.dam2_2425_actividad1.home_fragments.FotoPerfilFragment"
         android:label="fragment_foto_perfil"
-        tools:layout="@layout/fragment_foto_perfil" />
+        tools:layout="@layout/fragment_foto_perfil" >
+        <action
+            android:id="@+id/action_fotoPerfilFragment_to_profilesFragment"
+            app:destination="@id/profilesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/perfilFragment"
         android:name="org.eurekamps.dam2_2425_actividad1.fragmentsHome.PerfilFragment"

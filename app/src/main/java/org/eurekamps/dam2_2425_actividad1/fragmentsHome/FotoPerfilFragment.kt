@@ -1,6 +1,7 @@
 package org.eurekamps.dam2_2425_actividad1.home_fragments
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -17,10 +18,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
+import org.eurekamps.dam2_2425_actividad1.MainActivity
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.viewmodel.ProfileViewModel
 import java.io.ByteArrayOutputStream
@@ -28,6 +31,10 @@ import java.io.ByteArrayOutputStream
 class FotoPerfilFragment : Fragment() {
 
     private lateinit var imageView: ImageView
+    lateinit var btnCerrarSesionFotoPerfil: Button
+    lateinit var btnProfilesFotoPerfil: Button
+    lateinit var btnCamara: Button
+    lateinit var btnGaleria: Button
     private val profileViewModel: ProfileViewModel by viewModels()
     private val firebaseStorage = FirebaseStorage.getInstance()
     private val storageRef = firebaseStorage.reference
@@ -53,6 +60,10 @@ class FotoPerfilFragment : Fragment() {
         imageView = view.findViewById(R.id.imageView)
 
         // Establecer la imagen predeterminada al iniciar
+        btnCerrarSesionFotoPerfil = view.findViewById(R.id.btnCerrarSesionFotoPerfil)
+        btnProfilesFotoPerfil = view.findViewById(R.id.btnProfilesFotoPerfil)
+        btnCamara = view.findViewById(R.id.btnCamara)
+        btnGaleria = view.findViewById(R.id.btnGaleria)
         imageView.setImageResource(R.drawable.hombremujer)
 
         // Observa los cambios en la URL de la imagen de perfil
@@ -60,20 +71,22 @@ class FotoPerfilFragment : Fragment() {
             Log.d("FotoPerfilFragment", "Image URL updated: $imageUrl")
             // Cargar la imagen en el ImageView
             if (imageUrl != null) {
-                Picasso.get()
-                    .load(imageUrl)
-                    .into(imageView)
+                Picasso.get().load(imageUrl).into(imageView)
             } else {
                 // Si no hay URL, puedes establecer la imagen por defecto
                 imageView.setImageResource(R.drawable.hombremujer)
             }
         }
 
-        // Configura los botones para abrir la cámara y la galería
-        val btnCamera = view.findViewById<Button>(R.id.btnCamara)
-        val btnGallery = view.findViewById<Button>(R.id.btnGaleria)
+        btnCerrarSesionFotoPerfil.setOnClickListener {
+            val intent = Intent(requireContext(), MainActivity::class.java)
+        }
 
-        btnCamera.setOnClickListener {
+        btnProfilesFotoPerfil.setOnClickListener {
+            findNavController().navigate(R.id.action_fotoPerfilFragment_to_profilesFragment)
+        }
+
+        btnCamara.setOnClickListener {
             if (checkPermissions()) {
                 openCamera()
             } else {
@@ -81,7 +94,7 @@ class FotoPerfilFragment : Fragment() {
             }
         }
 
-        btnGallery.setOnClickListener {
+        btnGaleria.setOnClickListener {
             if (checkPermissions()) {
                 openGallery()
             } else {

@@ -32,4 +32,11 @@
     <string name="nombre_de_usuario">Nombre:</string>
     <string name="apellidos_usuario">Apellidos:</string>
     <string name="hobbies_usuarios">Hobbies:</string>
+    <string name="profiles_foto_perfil">Profiles</string>
+    <string name="cerrar_sesi_foto_perfil">Cerrar Sesión</string>
+    <string name="lista_usuarios">Lista Usuarios</string>
+    <string name="guardar">Guardar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="mostrar">Mostrar</string>
+    <string name="hobbies">Hobbies</string>
 </resources>

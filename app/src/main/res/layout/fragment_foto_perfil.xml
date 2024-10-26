@@ -14,9 +14,9 @@
         android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:background="@android:color/darker_gray"
         android:contentDescription="Selected image"
-        android:scaleType="centerCrop"
-        android:background="@android:color/darker_gray" />
+        android:scaleType="centerCrop" />
 
     <Button
         android:id="@+id/btnCamara"
@@ -32,5 +32,20 @@
         android:fontFamily="@font/simple_cake"
         android:text="@string/a_adir_imagen_desde_c_mara" />
 
+    <!-- Nuevo botón para ver la lista de usuarios -->
+    <Button
+        android:id="@+id/btnProfilesFotoPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/simple_cake"
+        android:text="@string/lista_usuarios" />"
+
+    <!-- Nuevo botón para cerrar sesión -->
+    <Button
+        android:id="@+id/btnCerrarSesionFotoPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/simple_cake"
+        android:text="@string/cerrar_sesi_foto_perfil" />
 
 </LinearLayout>
