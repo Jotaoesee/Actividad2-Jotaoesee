@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -32,6 +33,8 @@ class ProfilesFragment : Fragment() {
     private val profilesList = mutableListOf<FbProfile>()
     // Botón para cerrar sesión
     private lateinit var btnCerrarProfiles: Button
+    // Botón para ir al perfil
+    private lateinit var btnIrAPerfil: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +53,7 @@ class ProfilesFragment : Fragment() {
         // Inicializar el RecyclerView y configurar su layout manager
         recyclerProfiles = view.findViewById(R.id.listaPerfiles)
         btnCerrarProfiles = view.findViewById(R.id.btnCerrarProfiles)
+        btnIrAPerfil = view.findViewById(R.id.btnIrAPerfil)
         recyclerProfiles.layoutManager = LinearLayoutManager(requireContext())
 
         // Inicializar el adaptador del RecyclerView con la lista vacía de perfiles
@@ -67,6 +71,12 @@ class ProfilesFragment : Fragment() {
             val intent = Intent(requireActivity(), MainActivity::class.java)
             requireActivity().startActivity(intent)
             requireActivity().finish() // Finaliza la actividad actual
+        }
+
+        btnIrAPerfil.setOnClickListener {
+            findNavController().navigate(R.id.action_profilesFragment_to_perfilFragment)
+
+
         }
     }
 

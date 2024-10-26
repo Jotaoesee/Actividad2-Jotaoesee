@@ -39,6 +39,12 @@
             android:layout_height="wrap_content"
             android:text="Cerrar sesión" />
 
+        <Button
+            android:id="@+id/btnIrAPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ir a Perfil" />
+
     </LinearLayout>
 
 </FrameLayout>
