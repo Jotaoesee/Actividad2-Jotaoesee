@@ -46,16 +46,17 @@ class SeleccionProfileFragment : Fragment() {
         imgSeleccionada = view.findViewById(R.id.imagenSeleccionada)
         btnEditarFoto = view.findViewById(R.id.editarFoto)
 
-        btnEditarFoto.setOnClickListener {
-            findNavController().navigate(R.id.action_seleccionProfileFragment_to_fotoPerfilFragment)
-        }
+        // Establecer la imagen predeterminada al iniciar
+        imgSeleccionada.setImageResource(R.drawable.hombremujer) // Cambia esto por tu imagen
 
         // Observar cambios en la URL de la imagen del perfil
         profileViewModel.profileImageUrl.observe(viewLifecycleOwner) { url ->
             if (url != null) {
                 // Asignar la imagen de perfil
-                val imgProfileSelected: ImageView = view.findViewById(R.id.imagenSeleccionada)
-                Picasso.get().load(url).into(imgProfileSelected)
+                Picasso.get().load(url).into(imgSeleccionada)
+            } else {
+                // Si la URL es nula, mantener la imagen predeterminada
+                imgSeleccionada.setImageResource(R.drawable.hombremujer) // Cambia esto por tu imagen
             }
         }
 
@@ -64,8 +65,13 @@ class SeleccionProfileFragment : Fragment() {
         val perfilApellidos = "Apellidos del perfil" // Obtén los apellidos del perfil según sea necesario
         val perfilHobbies = "Hobbies del perfil" // Obtén los hobbies del perfil según sea necesario
 
-        // Asignar listener al botón "Edit"
-        view.findViewById<Button>(R.id.editarFoto).setOnClickListener {
+        // Asignar valores a los TextViews
+        txNombreUsuario.text = perfilNombre
+        txApellidosUsuario.text = perfilApellidos
+        txHobbiesUsuario.text = perfilHobbies
+
+        // Asignar listener al botón "Editar Foto"
+        btnEditarFoto.setOnClickListener {
             findNavController().navigate(R.id.action_seleccionProfileFragment_to_fotoPerfilFragment)
         }
     }
