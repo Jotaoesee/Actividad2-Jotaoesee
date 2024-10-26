@@ -5,13 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.fbClases.FbProfile
 
 class ProfileAdapter(private var profilesList: MutableList<FbProfile>) :
     RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
+
+    private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+
 
     class ProfileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvNombre: TextView = itemView.findViewById(R.id.tvNombre)
@@ -39,14 +44,23 @@ class ProfileAdapter(private var profilesList: MutableList<FbProfile>) :
         if (!imageUrl.isNullOrEmpty()) {
             Picasso.get()
                 .load(imageUrl)
-                .placeholder(R.drawable.registro_bici) // Imagen mientras carga
-                .error(R.drawable.registro_bici) // Imagen en caso de error
+                .placeholder(R.drawable.hombremujer) // Imagen mientras carga
+                .error(R.drawable.hombremujer) // Imagen en caso de error
                 .into(holder.imgPerfil)
         } else {
             // Establecer una imagen predeterminada si la URL es nula o vacía
-            holder.imgPerfil.setImageResource(R.drawable.registro_bici)
+            holder.imgPerfil.setImageResource(R.drawable.hombremujer)
+        }
+
+        // Establece el listener de clic
+        holder.itemView.setOnClickListener { view ->
+            if (profile.uid == currentUserId) {
+                view.findNavController().navigate(R.id.action_profilesFragment_to_seleccionProfileFragment)
+            }
         }
     }
+
+
 
     override fun onViewRecycled(holder: ProfileViewHolder) {
         super.onViewRecycled(holder)

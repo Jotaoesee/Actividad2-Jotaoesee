@@ -82,33 +82,28 @@ class ProfilesFragment : Fragment() {
 
     // Función para recuperar los perfiles desde Firestore y actualizarlos en el RecyclerView
     private fun mostrarPerfiles() {
-        // Recupera la colección "users" de Firestore
         db.collection("users").get()
             .addOnSuccessListener { result ->
-                // Limpiar la lista antes de llenarla con nuevos datos
                 profilesList.clear()
                 for (document in result) {
-                    // Convierte cada documento en un objeto FbProfile
-                    val profile = document.toObject(FbProfile::class.java)
-                    if (profile != null) { // Verifica que el perfil no sea nulo
-                        profilesList.add(profile) // Añade el perfil a la lista
-                    } else {
-                        // Log de advertencia si un documento es nulo
-                        Log.w("ProfilesFragment", "Document ${document.id} is null")
-                    }
+                    val profile = FbProfile(
+                        uid = document.id,  // Suponiendo que el ID del documento es el uid
+                        nombre = document.getString("nombre"),
+                        apellidos = document.getString("apellidos"),
+                        hobbies = document.getString("hobbies"),
+                        imagenUrl = document.getString("imagenUrl")
+                    )
+                    profilesList.add(profile)
                 }
-                // Notifica al adaptador que los datos han cambiado para actualizar el RecyclerView
                 profilesAdapter.notifyDataSetChanged()
-
-                // Si la lista está vacía, muestra un mensaje al usuario
                 if (profilesList.isEmpty()) {
                     Toast.makeText(requireContext(), "No hay perfiles disponibles.", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener { e ->
-                // Log de error en caso de fallo al recuperar los datos
                 Log.e("ProfilesFragment", "Error fetching profiles: ", e)
                 Toast.makeText(requireContext(), "Error al recuperar perfiles.", Toast.LENGTH_SHORT).show()
             }
     }
+
 }
