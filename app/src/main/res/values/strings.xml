@@ -25,4 +25,11 @@
     <string name="apellidos_seleccion">Apellidos:</string>
     <string name="hobbies_seleccion">Hobbies:</string>
     <string name="editar_foto_seleccion">Editar Foto</string>
+    <string name="a_adir_imagen_desde_galeria">Añadir imagen desde galeria</string>
+    <string name="a_adir_imagen_desde_c_mara">Añadir imagen desde cámara</string>
+    <string name="cerrar_sesi_list_perfil">Cerrar sesión</string>
+    <string name="ir_a_perfil_desde_list_perfiles">Ir a Perfil</string>
+    <string name="nombre_de_usuario">Nombre:</string>
+    <string name="apellidos_usuario">Apellidos:</string>
+    <string name="hobbies_usuarios">Hobbies:</string>
 </resources>

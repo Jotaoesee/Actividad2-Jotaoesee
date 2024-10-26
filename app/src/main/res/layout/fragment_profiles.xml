@@ -34,16 +34,19 @@
             android:scrollbars="vertical"/>
 
         <Button
+            android:id="@+id/btnIrPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/simple_cake"
+            android:text="@string/ir_a_perfil_desde_list_perfiles" />
+
+        <Button
             android:id="@+id/btnCerrarProfiles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cerrar sesión" />
+            android:fontFamily="@font/simple_cake"
+            android:text="@string/cerrar_sesi_list_perfil" />
 
-        <Button
-            android:id="@+id/btnIrAPerfil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ir a Perfil" />
 
     </LinearLayout>
 

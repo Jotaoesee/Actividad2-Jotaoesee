@@ -76,19 +76,19 @@
             android:id="@+id/btnVolverRegistro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="96dp"
-            android:layout_marginTop="88dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/simple_cake"
             android:text="@string/ya_est_s_registrado_pulsa_aqu"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txConfirmarContraseñaRegistro" />
+            app:layout_constraintTop_toBottomOf="@+id/btnRegistrarRegistro" />
 
         <Button
             android:id="@+id/btnRegistrarRegistro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="156dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="216dp"
             android:fontFamily="@font/simple_cake"
             android:text="@string/registrarRegistro"
             app:layout_constraintStart_toStartOf="parent"

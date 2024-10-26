@@ -22,12 +22,15 @@
         android:id="@+id/btnCamara"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Añadir imagen desde galeria" />
+        android:fontFamily="@font/simple_cake"
+        android:text="@string/a_adir_imagen_desde_galeria" />
 
     <Button
         android:id="@+id/btnGaleria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Añadir imagen desde cámara" />
+        android:fontFamily="@font/simple_cake"
+        android:text="@string/a_adir_imagen_desde_c_mara" />
+
 
 </LinearLayout>

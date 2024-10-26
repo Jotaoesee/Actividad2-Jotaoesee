@@ -1,7 +1,6 @@
 package org.eurekamps.dam2_2425_actividad1.fragmentsHome
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,13 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import org.eurekamps.dam2_2425_actividad1.HomeActivity
 import org.eurekamps.dam2_2425_actividad1.MainActivity
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.fbClases.FbProfile
@@ -38,12 +35,8 @@ class PerfilFragment : Fragment() {
     lateinit var btnMostrar: Button
     lateinit var btnEliminar: Button
     lateinit var btnIrProfiles: Button
-    lateinit var imgPerfil: ImageView
 
     private val perfilViewModel: PerfilViewModel by viewModels()
-
-
-    private var imageUri: Uri? = null // Variable para almacenar la URI de la imagen
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +65,6 @@ class PerfilFragment : Fragment() {
         btnMostrar = view.findViewById(R.id.btnMostrar)
         btnEliminar = view.findViewById(R.id.btnEliminar)
         btnIrProfiles = view.findViewById(R.id.btnIrProfiles)
-        imgPerfil = view.findViewById(R.id.imgPerfil)
 
         // Configura el clic del botón para ir a ProfilesFragment
         btnIrProfiles.setOnClickListener {
@@ -82,7 +74,10 @@ class PerfilFragment : Fragment() {
         // Listener para cerrar sesión
         btnCerrarSesion.setOnClickListener {
             auth.signOut() // Cierra la sesión de Firebase
-            val intent : Intent = Intent(requireActivity(), MainActivity::class.java)       }
+            val intent : Intent = Intent(requireActivity(), MainActivity::class.java)
+            requireActivity().startActivity(intent)
+            requireActivity().finish()
+        }
 
         // Listener para guardar perfil
         btnGuardar.setOnClickListener {
@@ -90,7 +85,6 @@ class PerfilFragment : Fragment() {
                 nombre = txNombre.text.toString(),
                 apellidos = txApellidos.text.toString(),
                 hobbies = txHobbies.text.toString(),
-                imagenUrl = "" // Agrega lógica de imagen según sea necesario
             )
             perfilViewModel.guardarPerfil(perfilData) { success ->
                 if (success) {
@@ -116,6 +110,16 @@ class PerfilFragment : Fragment() {
             }
         }
 
+        // Llama a recuperarPerfil cuando presionen "Mostrar"
+        btnMostrar.setOnClickListener {
+            perfilViewModel.recuperarPerfil()
+        }
+
+
+        // Llama a recuperarPerfil cuando presionen "Mostrar"
+        btnMostrar.setOnClickListener {
+            perfilViewModel.recuperarPerfil()
+        }
 
         // Listener para mostrar el perfil guardado
         // Observa el perfil almacenado en el ViewModel
@@ -125,17 +129,6 @@ class PerfilFragment : Fragment() {
                 txApellidos.setText(it.apellidos)
                 txHobbies.setText(it.hobbies)
             } ?: Toast.makeText(requireContext(), "No se encontró perfil.", Toast.LENGTH_SHORT).show()
-        }
-
-        // Llama a recuperarPerfil cuando presionen "Mostrar"
-        btnMostrar.setOnClickListener {
-            perfilViewModel.recuperarPerfil()
-        }
-
-
-        // Llama a recuperarPerfil cuando presionen "Mostrar"
-        btnMostrar.setOnClickListener {
-            perfilViewModel.recuperarPerfil()
         }
 
     }
