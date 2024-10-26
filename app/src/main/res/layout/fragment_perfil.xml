@@ -11,39 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imgPerfil"
-            android:layout_width="138dp"
-            android:layout_height="129dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginBottom="32dp"
-            android:src="@drawable/perfil_bici"
-            app:layout_constraintBottom_toTopOf="@+id/txNombrePerfil"
-            app:layout_constraintEnd_toStartOf="@+id/btnSeleccionarImagen"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnSeleccionarImagen"
-            android:layout_width="123dp"
-            android:layout_height="61dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="104dp"
-            android:text="Seleccionar Imagen"
-            android:fontFamily="@font/simple_cake"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <EditText
             android:id="@+id/txNombrePerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="13dp"
             android:layout_marginEnd="98dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/border_edit_text"
             android:ems="10"
             android:fontFamily="@font/simple_cake"
@@ -54,8 +29,9 @@
             android:textColorHint="@color/azul"
             app:layout_constraintBottom_toTopOf="@+id/txApellidosPerfil"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgPerfil" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
         <EditText
             android:id="@+id/txApellidosPerfil"
@@ -63,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
             android:layout_marginEnd="98dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/border_edit_text"
             android:ems="10"
             android:fontFamily="@font/simple_cake"
@@ -83,7 +59,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
-            android:layout_marginBottom="14dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="98dp"
+            android:layout_marginBottom="25dp"
             android:background="@drawable/border_edit_text"
             android:ems="10"
             android:fontFamily="@font/simple_cake"
@@ -93,17 +71,21 @@
             android:padding="16dp"
             android:textColorHint="@color/azul"
             app:layout_constraintBottom_toTopOf="@+id/btnGuardar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txApellidosPerfil" />
+            app:layout_constraintTop_toBottomOf="@+id/txApellidosPerfil" />
 
         <Button
             android:id="@+id/btnCerrarSesion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="140dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/cerrar_sesi_n"
+            android:layout_marginStart="148dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginBottom="12dp"
             android:fontFamily="@font/simple_cake"
+            android:text="@string/cerrar_sesi_n"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnIrProfiles" />
 
@@ -111,50 +93,68 @@
             android:id="@+id/btnGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="160dp"
-            android:text="Guardar"
+            android:layout_marginStart="161dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="162dp"
             android:fontFamily="@font/simple_cake"
+            android:text="Guardar"
             app:layout_constraintBottom_toTopOf="@+id/btnMostrar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txHobbies" />
+            app:layout_constraintTop_toBottomOf="@+id/txHobbies" />
 
         <Button
             android:id="@+id/btnIrProfiles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="33dp"
-            android:text="@string/profiles"
+            android:layout_marginEnd="163dp"
             android:fontFamily="@font/simple_cake"
+            android:text="@string/profiles"
             app:layout_constraintBottom_toTopOf="@+id/btnCerrarSesion"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnEliminar"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/btnEliminar" />
 
         <Button
             android:id="@+id/btnMostrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="156dp"
-            android:layout_marginTop="12dp"
-            android:text="Mostrar"
+            android:layout_marginStart="161dp"
+            android:layout_marginEnd="162dp"
             android:fontFamily="@font/simple_cake"
+            android:text="Mostrar"
+            app:layout_constraintBottom_toTopOf="@+id/btnEliminar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnGuardar" />
+            app:layout_constraintTop_toBottomOf="@+id/btnGuardar" />
 
         <Button
             android:id="@+id/btnEliminar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="160dp"
-            android:layout_marginTop="12dp"
-            android:text="Eliminar"
+            android:layout_marginStart="161dp"
+            android:layout_marginEnd="162dp"
             android:fontFamily="@font/simple_cake"
+            android:text="Eliminar"
+            app:layout_constraintBottom_toTopOf="@+id/btnIrProfiles"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnMostrar" />
+            app:layout_constraintTop_toBottomOf="@+id/btnMostrar" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="141dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="142dp"
+            android:layout_marginBottom="13dp"
+            app:layout_constraintBottom_toTopOf="@+id/txNombrePerfil"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

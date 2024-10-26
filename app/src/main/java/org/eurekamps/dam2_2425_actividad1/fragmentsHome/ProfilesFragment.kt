@@ -70,7 +70,7 @@ class ProfilesFragment : Fragment() {
             // Redirige a la MainActivity después de cerrar la sesión
             val intent = Intent(requireActivity(), MainActivity::class.java)
             requireActivity().startActivity(intent)
-            requireActivity().finish() // Finaliza la actividad actual
+            requireActivity().finish()
         }
 
         btnIrAPerfil.setOnClickListener {
