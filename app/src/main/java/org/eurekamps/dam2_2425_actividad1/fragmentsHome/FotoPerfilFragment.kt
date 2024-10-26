@@ -20,6 +20,7 @@ import androidx.fragment.app.viewModels
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 import org.eurekamps.dam2_2425_actividad1.R
 import org.eurekamps.dam2_2425_actividad1.viewmodel.ProfileViewModel
 import java.io.ByteArrayOutputStream
@@ -53,6 +54,20 @@ class FotoPerfilFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         imageView = view.findViewById(R.id.imageView)
 
+        // Observa los cambios en la URL de la imagen de perfil
+        profileViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
+            Log.d("FotoPerfilFragment", "Image URL updated: $imageUrl")
+            // Cargar la imagen en el ImageView
+            if (imageUrl != null) {
+                Picasso.get()
+                    .load(imageUrl)
+                    .into(imageView)
+            } else {
+                // Si no hay URL, puedes establecer una imagen por defecto
+                imageView.setImageResource(R.drawable.hombremujer)
+            }
+        }
+
         // Configura los botones para abrir la cámara y la galería
         val btnCamera = view.findViewById<Button>(R.id.btnCamara)
         val btnGallery = view.findViewById<Button>(R.id.btnGaleria)
@@ -72,13 +87,8 @@ class FotoPerfilFragment : Fragment() {
                 requestPermissions()
             }
         }
-
-        // Observa los cambios en la URL de la imagen de perfil
-        profileViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
-            Log.d("FotoPerfilFragment", "Image URL updated: $imageUrl")
-            // Aquí puedes manejar la URL de la imagen si es necesario
-        }
     }
+
 
     // ActivityResultLauncher for capturing a picture from the camera
     private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap: Bitmap? ->

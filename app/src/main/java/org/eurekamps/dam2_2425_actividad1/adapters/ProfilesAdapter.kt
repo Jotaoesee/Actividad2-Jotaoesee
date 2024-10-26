@@ -48,6 +48,12 @@ class ProfileAdapter(private var profilesList: MutableList<FbProfile>) :
         }
     }
 
+    override fun onViewRecycled(holder: ProfileViewHolder) {
+        super.onViewRecycled(holder)
+        // Libera recursos para evitar fugas de memoria cuando la vista es reciclada
+        holder.imgPerfil.setImageDrawable(null)
+    }
+
     override fun getItemCount() = profilesList.size
 
     // Función para actualizar la lista de perfiles
