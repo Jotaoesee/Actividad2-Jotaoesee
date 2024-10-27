@@ -44,60 +44,67 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Infla el layout del fragmento
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Inicialización de las vistas
         txEmail = view.findViewById(R.id.txEmailRegistro)
         txContraseña = view.findViewById(R.id.txContraseñaRegistro)
         txInicioSesion = view.findViewById(R.id.txInicio)
         btnLogin = view.findViewById(R.id.btnLogin)
         btnRegistrar = view.findViewById(R.id.btnRegistrarRegistro)
 
+        // Configura el botón de inicio de sesión
         btnLogin.setOnClickListener {
             val email = txEmail.text.toString().trim()
             val contrasenia = txContraseña.text.toString().trim()
 
-            if (email.isEmpty()) {
-                Toast.makeText(requireContext(), "Por favor, introduce un correo electrónico.", Toast.LENGTH_SHORT).show()
-            } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(requireContext(), "Formato de correo electrónico inválido.", Toast.LENGTH_SHORT).show()
-            } else if (contrasenia.isEmpty()) {
-                Toast.makeText(requireContext(), "Por favor, introduce una contraseña.", Toast.LENGTH_SHORT).show()
-            } else {
-                iniciarSesion(email, contrasenia)
+            // Validación de los campos de entrada
+            when {
+                email.isEmpty() -> Toast.makeText(requireContext(), "Por favor, introduce un correo electrónico.", Toast.LENGTH_SHORT).show()
+                !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() -> Toast.makeText(requireContext(), "Formato de correo electrónico inválido.", Toast.LENGTH_SHORT).show()
+                contrasenia.isEmpty() -> Toast.makeText(requireContext(), "Por favor, introduce una contraseña.", Toast.LENGTH_SHORT).show()
+                else -> iniciarSesion(email, contrasenia) // Inicia el proceso de inicio de sesión
             }
         }
 
+        // Configura el botón de registro para navegar al fragmento de registro
         btnRegistrar.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registroFragment)
         }
 
         // Observa los cambios en el perfil desde el ViewModel
         perfilViewModel.perfil.observe(viewLifecycleOwner) { perfil ->
-            // Aquí puedes manejar el perfil si es necesario
+            // Puede manejar el perfil si es necesario
         }
     }
 
+    // Función para iniciar sesión en Firebase con correo electrónico y contraseña
     private fun iniciarSesion(email: String, contrasenia: String) {
-        btnLogin.isEnabled = false
+        btnLogin.isEnabled = false // Desactiva el botón para evitar múltiples pulsaciones
+
+        // Autenticación de Firebase
         auth.signInWithEmailAndPassword(email, contrasenia)
             .addOnCompleteListener(requireActivity()) { task ->
                 btnLogin.isEnabled = true
                 if (task.isSuccessful) {
                     Toast.makeText(requireContext(), "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                    // Descarga el perfil usando el ID del usuario
+
+                    // Si la autenticación es exitosa, descarga el perfil
                     val userId = auth.currentUser?.uid
                     if (userId != null) {
                         perfilViewModel.descargarPerfil(userId)
                     }
 
-                    // Navega a PerfilFragment o donde sea necesario
+                    // Navega a la actividad principal (HomeActivity)
                     val intent = Intent(requireContext(), HomeActivity::class.java)
                     startActivity(intent)
                 } else {
+                    // Manejo de errores de inicio de sesión
                     val errorMessage = when (task.exception) {
                         is FirebaseAuthInvalidUserException -> "El correo electrónico no está registrado."
                         is FirebaseAuthInvalidCredentialsException -> "La contraseña es incorrecta."
@@ -108,6 +115,7 @@ class LoginFragment : Fragment() {
                 }
             }
             .addOnFailureListener { exception ->
+                // En caso de error en la autenticación, mostrar mensaje y log
                 btnLogin.isEnabled = true
                 Log.e("LoginFragment", "Error during login", exception)
                 Toast.makeText(requireContext(), "Error en la autenticación. Intenta nuevamente.", Toast.LENGTH_SHORT).show()

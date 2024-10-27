@@ -22,24 +22,24 @@ class SeleccionProfileFragment : Fragment() {
     private lateinit var imgSeleccionada: ImageView
     private lateinit var btnEditarFoto: Button
 
-    // Obtener la instancia del ViewModel
+    // Instancia del ViewModel para observar los datos del perfil
     private val profileViewModel: ProfileViewModel by viewModels()
 
-    // Instancias de Firebase
+    // Instancias de Firebase Authentication y Firestore para obtener el usuario y datos de perfil
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
+        db = FirebaseFirestore.getInstance()// Inicializa Firestore
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Infla el layout del fragmento
         return inflater.inflate(R.layout.fragment_seleccion_profile, container, false)
     }
 
@@ -49,44 +49,45 @@ class SeleccionProfileFragment : Fragment() {
         imgSeleccionada = view.findViewById(R.id.imagenSeleccionada)
         btnEditarFoto = view.findViewById(R.id.editarFoto)
 
-        // Observar cambios en la URL de la imagen del perfil
+        // Observador para la URL de la imagen de perfil en el ViewModel
         profileViewModel.urlImagenPerfil.observe(viewLifecycleOwner) { imagenUrl ->
             if (!imagenUrl.isNullOrEmpty()) {
-                // Asignar la imagen de perfil si existe una URL válida
+                // Cargar la imagen de perfil si hay una URL válida
                 cargarImagenPerfil(imagenUrl)
             } else {
-                // Si no hay URL, establecer la imagen predeterminada
+                // Si no hay URL, mostrar una imagen predeterminada
                 imgSeleccionada.setImageResource(R.drawable.hombremujer)
             }
         }
 
-        // Asignar listener al botón "Editar Foto"
+        // Listener para el botón "Editar Foto"
         btnEditarFoto.setOnClickListener {
+            // Navega al fragmento para editar la foto de perfil
             findNavController().navigate(R.id.action_seleccionProfileFragment_to_fotoPerfilFragment)
         }
 
-        // Llamar a cargarImagenDesdeFirestore al crear la vista
+        // Llama a cargarImagenDesdeFirestore para cargar la imagen desde Firestore
         cargarImagenDesdeFirestore()
     }
 
     private fun cargarImagenDesdeFirestore() {
-        val userId = auth.currentUser?.uid ?: return
+        val userId = auth.currentUser?.uid ?: return // Obtiene el ID del usuario actual
         val userProfileDocRef = db.collection("users").document(userId)
 
-        // Obtener la URL de la imagen de perfil del Firestore
+        // Accede a Firestore para obtener la URL de la imagen de perfil
         userProfileDocRef.get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     val imageUrl = document.getString("imagenUrl")
                     if (!imageUrl.isNullOrEmpty()) {
-                        // Si hay una imagen URL, cargarla
+                        // Si la URL es válida, cargar la imagen de perfil
                         cargarImagenPerfil(imageUrl)
                     } else {
                         // Si no hay URL, mostrar la imagen predeterminada
                         imgSeleccionada.setImageResource(R.drawable.hombremujer)
                     }
                 } else {
-                    // Si no existe el documento del perfil, mostrar la imagen predeterminada
+                    // Si no existe el documento, mostrar la imagen predeterminada
                     imgSeleccionada.setImageResource(R.drawable.hombremujer)
                 }
             }
