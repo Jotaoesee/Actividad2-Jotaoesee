@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.squareup.picasso.Callback
@@ -19,6 +20,9 @@ import org.eurekamps.dam2_2425_actividad1.viewmodel.ProfileViewModel
 
 class SeleccionProfileFragment : Fragment() {
 
+    lateinit var txNombreSeleccion: TextView
+    lateinit var txApellidosSeleccion: TextView
+    lateinit var txHobbiesSeleccion: TextView
     private lateinit var imgSeleccionada: ImageView
     private lateinit var btnEditarFoto: Button
 
@@ -46,6 +50,9 @@ class SeleccionProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        txNombreSeleccion = view.findViewById(R.id.txNombreSeleccion)
+        txApellidosSeleccion = view.findViewById(R.id.txApellidosSeleccion)
+        txHobbiesSeleccion = view.findViewById(R.id.txHobbiesSeleccion)
         imgSeleccionada = view.findViewById(R.id.imagenSeleccionada)
         btnEditarFoto = view.findViewById(R.id.editarFoto)
 
@@ -67,36 +74,48 @@ class SeleccionProfileFragment : Fragment() {
         }
 
         // Llama a cargarImagenDesdeFirestore para cargar la imagen desde Firestore
-        cargarImagenDesdeFirestore()
+        cargarDatosDePerfilDesdeFirestore()
     }
 
-    private fun cargarImagenDesdeFirestore() {
+    private fun cargarDatosDePerfilDesdeFirestore() {
         val userId = auth.currentUser?.uid ?: return // Obtiene el ID del usuario actual
         val userProfileDocRef = db.collection("users").document(userId)
 
-        // Accede a Firestore para obtener la URL de la imagen de perfil
+        // Accede a Firestore para obtener la URL de la imagen de perfil y los datos del perfil
         userProfileDocRef.get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     val imageUrl = document.getString("imagenUrl")
                     if (!imageUrl.isNullOrEmpty()) {
-                        // Si la URL es válida, cargar la imagen de perfil
-                        cargarImagenPerfil(imageUrl)
+                        cargarImagenPerfil(imageUrl) // Carga la imagen si la URL es válida
                     } else {
-                        // Si no hay URL, mostrar la imagen predeterminada
-                        imgSeleccionada.setImageResource(R.drawable.hombremujer)
+                        imgSeleccionada.setImageResource(R.drawable.hombremujer) // Imagen predeterminada
                     }
+
+                    // Cargar el nombre, apellidos y hobbies
+                    txNombreSeleccion.text = document.getString("nombre") ?: "Nombre no disponible"
+                    txApellidosSeleccion.text = document.getString("apellidos") ?: "Apellidos no disponibles"
+                    txHobbiesSeleccion.text = document.getString("hobbies") ?: "Hobbies no disponibles"
+
                 } else {
-                    // Si no existe el documento, mostrar la imagen predeterminada
-                    imgSeleccionada.setImageResource(R.drawable.hombremujer)
+                    // Si no existe el documento, establecer imágenes y textos predeterminados
+                    imgSeleccionada.setImageResource(R.drawable.hombremujer) // Imagen predeterminada
+                    txNombreSeleccion.text = "Nombre no disponible"
+                    txApellidosSeleccion.text = "Apellidos no disponibles"
+                    txHobbiesSeleccion.text = "Hobbies no disponibles"
                 }
             }
             .addOnFailureListener { e ->
-                Log.e("SeleccionProfileFragment", "Error al obtener la imagen de perfil: ", e)
-                // En caso de error, mostrar la imagen predeterminada
-                imgSeleccionada.setImageResource(R.drawable.hombremujer)
+                Log.e("SeleccionProfileFragment", "Error al obtener los datos de perfil: ", e)
+                // En caso de error, mostrar la imagen predeterminada y textos
+                imgSeleccionada.setImageResource(R.drawable.hombremujer) // Imagen predeterminada
+                txNombreSeleccion.text = "Nombre no disponible"
+                txApellidosSeleccion.text = "Apellidos no disponibles"
+                txHobbiesSeleccion.text = "Hobbies no disponibles"
             }
     }
+
+
 
     private fun cargarImagenPerfil(imagenUrl: String) {
         Log.d("SeleccionProfileFragment", "Cargando imagen desde: $imagenUrl")
