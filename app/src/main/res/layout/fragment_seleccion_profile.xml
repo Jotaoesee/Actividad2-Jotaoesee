@@ -12,71 +12,36 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
+        <!-- NombreUsuario -->
+
+        <!-- ApellidosUsuario -->
+
+        <!-- Hobbies -->
+
+
+        <!-- Botón de editar -->
         <ImageView
             android:id="@+id/imagenSeleccionada"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="76dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginTop="216dp"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/nombreUsuario"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- NombreUsuario -->
-        <TextView
-            android:id="@+id/nombreUsuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:text="@string/nombre_seleccion"
-            android:textColor="@color/azul"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imagenSeleccionada" />
-
-        <!-- ApellidosUsuario -->
-        <TextView
-            android:id="@+id/apellidosUsuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/apellidos_seleccion"
-            android:textColor="@color/azul"
-
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.514"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nombreUsuario" />
-
-        <!-- Hobbies -->
-        <TextView
-            android:id="@+id/hobbiesUsuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hobbies_seleccion"
-            android:textColor="@color/azul"
-            android:textSize="18sp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintTop_toBottomOf="@id/apellidosUsuario"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-
-        <!-- Botón de editar -->
         <Button
             android:id="@+id/editarFoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/simple_cake"
             android:text="@string/editar_foto_seleccion"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/hobbiesUsuario" />
+            app:layout_constraintTop_toBottomOf="@+id/imagenSeleccionada" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

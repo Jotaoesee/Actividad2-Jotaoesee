@@ -5,18 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ProfileViewModel : ViewModel() {
-    private val _profileImageUrl = MutableLiveData<String>()
-    val profileImageUrl: LiveData<String> get() = _profileImageUrl
+    // MutableLiveData para almacenar la URL de la imagen de perfil
+    private val _profileImageUrl = MutableLiveData<String?>()
 
-    private val _profileName = MutableLiveData<String>()
-    val profileName: LiveData<String> get() = _profileName
+    // Exponer solo LiveData para evitar modificaciones externas
+    val profileImageUrl: LiveData<String?> get() = _profileImageUrl
 
-    fun setProfileImageUrl(url: String) {
-        _profileImageUrl.value = url
-    }
-
-    fun setProfileName(name: String) {
-        _profileName.value = name
+    // Método para establecer la URL de la imagen de perfil
+    fun setProfileImageUrl(url: String?) {
+        // Validar la URL antes de establecerla
+        if (!url.isNullOrBlank()) {
+            _profileImageUrl.value = url
+        } else {
+            // Manejar el caso de URL no válida
+            _profileImageUrl.value = null // O puedes mantener el valor anterior
+        }
     }
 }
-

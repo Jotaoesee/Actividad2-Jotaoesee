@@ -17,7 +17,6 @@ class ProfileAdapter(private var profilesList: MutableList<FbProfile>) :
 
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
 
-
     class ProfileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvNombre: TextView = itemView.findViewById(R.id.tvNombre)
         val tvApellido: TextView = itemView.findViewById(R.id.tvApellido)
@@ -40,19 +39,14 @@ class ProfileAdapter(private var profilesList: MutableList<FbProfile>) :
 
         val imageUrl = profile.imagenUrl
 
-        // Verifica si la URL de la imagen no es nula ni vacía antes de cargar con Picasso
-        if (!imageUrl.isNullOrEmpty()) {
-            Picasso.get()
-                .load(imageUrl)
-                .placeholder(R.drawable.hombremujer) // Imagen mientras carga
-                .error(R.drawable.hombremujer) // Imagen en caso de error
-                .into(holder.imgPerfil)
-        } else {
-            // Establecer una imagen predeterminada si la URL es nula o vacía
-            holder.imgPerfil.setImageResource(R.drawable.hombremujer)
-        }
+        // Cargar la imagen con Picasso
+        Picasso.get()
+            .load(imageUrl)
+            .placeholder(R.drawable.hombremujer) // Imagen de carga
+            .error(R.drawable.hombremujer) // Imagen predeterminada en caso de error
+            .into(holder.imgPerfil)
 
-        // Establece el listener de clic
+        // Establecer el listener de clic
         holder.itemView.setOnClickListener { view ->
             if (profile.uid == currentUserId) {
                 view.findNavController().navigate(R.id.action_profilesFragment_to_seleccionProfileFragment)
@@ -60,11 +54,9 @@ class ProfileAdapter(private var profilesList: MutableList<FbProfile>) :
         }
     }
 
-
-
     override fun onViewRecycled(holder: ProfileViewHolder) {
         super.onViewRecycled(holder)
-        // Libera recursos para evitar fugas de memoria cuando la vista es reciclada
+        // Libera recursos para evitar fugas de memoria
         holder.imgPerfil.setImageDrawable(null)
     }
 
@@ -74,6 +66,6 @@ class ProfileAdapter(private var profilesList: MutableList<FbProfile>) :
     fun actualizarLista(nuevaLista: List<FbProfile>) {
         profilesList.clear()
         profilesList.addAll(nuevaLista)
-        notifyDataSetChanged() // Notifica al adaptador que los datos han cambiado
+        notifyDataSetChanged()
     }
 }

@@ -52,15 +52,13 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation ("com.google.firebase:firebase-auth:23.0.0")
-    implementation ("com.google.firebase:firebase-auth-ktx:21.0.6")
-    implementation ("com.google.firebase:firebase-firestore-ktx:24.6.0")
-    implementation ("com.squareup.picasso:picasso:2.8")
-    implementation ("com.google.firebase:firebase-storage-ktx:20.2.0")
-    implementation ("androidx.appcompat:appcompat:1.5.0")
-    implementation ("androidx.fragment:fragment:1.8.4")
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx")
+    implementation("com.squareup.picasso:picasso:2.8")
+
+
 
 }

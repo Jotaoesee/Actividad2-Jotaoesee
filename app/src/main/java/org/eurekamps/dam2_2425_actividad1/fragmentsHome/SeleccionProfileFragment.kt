@@ -16,9 +16,6 @@ import org.eurekamps.dam2_2425_actividad1.viewmodel.ProfileViewModel
 
 class SeleccionProfileFragment : Fragment() {
 
-    lateinit var txNombreUsuario: TextView
-    lateinit var txApellidosUsuario: TextView
-    lateinit var txHobbiesUsuario: TextView
     lateinit var imgSeleccionada: ImageView
     lateinit var btnEditarFoto: Button
 
@@ -40,9 +37,6 @@ class SeleccionProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        txNombreUsuario = view.findViewById(R.id.nombreUsuario)
-        txApellidosUsuario = view.findViewById(R.id.apellidosUsuario)
-        txHobbiesUsuario = view.findViewById(R.id.hobbiesUsuario)
         imgSeleccionada = view.findViewById(R.id.imagenSeleccionada)
         btnEditarFoto = view.findViewById(R.id.editarFoto)
 
@@ -59,16 +53,6 @@ class SeleccionProfileFragment : Fragment() {
                 imgSeleccionada.setImageResource(R.drawable.hombremujer)
             }
         }
-
-        // Asignar los textos a los TextViews (debes manejar los demás campos en el ViewModel también si es necesario)
-        val perfilNombre = "Nombre del perfil"
-        val perfilApellidos = "Apellidos del perfil"
-        val perfilHobbies = "Hobbies del perfil"
-
-        // Asignar valores a los TextViews
-        txNombreUsuario.text = perfilNombre
-        txApellidosUsuario.text = perfilApellidos
-        txHobbiesUsuario.text = perfilHobbies
 
         // Asignar listener al botón "Editar Foto"
         btnEditarFoto.setOnClickListener {

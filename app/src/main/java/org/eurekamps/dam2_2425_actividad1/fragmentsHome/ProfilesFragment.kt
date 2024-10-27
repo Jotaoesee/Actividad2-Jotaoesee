@@ -87,11 +87,11 @@ class ProfilesFragment : Fragment() {
                 profilesList.clear()
                 for (document in result) {
                     val profile = FbProfile(
-                        uid = document.id,  // Suponiendo que el ID del documento es el uid
-                        nombre = document.getString("nombre"),
-                        apellidos = document.getString("apellidos"),
-                        hobbies = document.getString("hobbies"),
-                        imagenUrl = document.getString("imagenUrl")
+                        uid = document.id,
+                        nombre = document.getString("nombre") ?: "",
+                        apellidos = document.getString("apellidos") ?: "",
+                        hobbies = document.getString("hobbies") ?: "",
+                        imagenUrl = document.getString("imagenUrl") // Asegúrate de que este campo existe en Firestore
                     )
                     profilesList.add(profile)
                 }
@@ -105,5 +105,6 @@ class ProfilesFragment : Fragment() {
                 Toast.makeText(requireContext(), "Error al recuperar perfiles.", Toast.LENGTH_SHORT).show()
             }
     }
+
 
 }

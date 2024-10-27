@@ -80,6 +80,8 @@ class FotoPerfilFragment : Fragment() {
 
         btnCerrarSesionFotoPerfil.setOnClickListener {
             val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
         }
 
         btnProfilesFotoPerfil.setOnClickListener {
@@ -136,7 +138,6 @@ class FotoPerfilFragment : Fragment() {
     }
 
     fun subirImagen(bitmap: Bitmap) {
-        // Obtengo el UID del usuario
         val userId = auth.currentUser?.uid ?: return
 
         // Genera un nombre de archivo único
@@ -156,20 +157,42 @@ class FotoPerfilFragment : Fragment() {
                     val downloadURL = uri.toString()
                     profileViewModel.setProfileImageUrl(downloadURL)
 
-                    val profiles = db.collection("Profiles")
-                    profiles.document(userId).update("strAvatarUrl", downloadURL)
-                        .addOnSuccessListener {
-                            showToast("Profile image updated successfully!")
-                            // Navegar o realizar cualquier otra acción necesaria
+                    val profiles = db.collection("users")
+                    val userProfileDocRef = profiles.document(userId)
+
+                    // Verifica si el documento existe antes de actualizarlo
+                    userProfileDocRef.get()
+                        .addOnSuccessListener { document ->
+                            if (document.exists()) {
+                                // Si el documento ya existe, actualiza el campo `strAvatarUrl`
+                                userProfileDocRef.update("imagenUrl", downloadURL)
+                                    .addOnSuccessListener {
+                                        showToast("Profile image updated successfully!")
+                                    }
+                                    .addOnFailureListener {
+                                        showToast("Error updating profile image URL")
+                                    }
+                            } else {
+                                // Si el documento no existe, crea un nuevo documento con `strAvatarUrl`
+                                val newProfileData = mapOf("imagenUrl" to downloadURL)
+                                userProfileDocRef.set(newProfileData)
+                                    .addOnSuccessListener {
+                                        showToast("Profile created and image URL saved!")
+                                    }
+                                    .addOnFailureListener {
+                                        showToast("Error creating profile document")
+                                    }
+                            }
                         }
                         .addOnFailureListener {
-                            showToast("Error updating profile image URL")
+                            showToast("Error checking profile document existence")
                         }
                 }.addOnFailureListener {
                     showToast("Error retrieving download URL")
                 }
             }
     }
+
 
     // Function to open the camera
     private fun openCamera() {
