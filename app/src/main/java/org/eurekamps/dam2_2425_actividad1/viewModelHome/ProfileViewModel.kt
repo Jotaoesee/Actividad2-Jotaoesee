@@ -1,24 +1,26 @@
 package org.eurekamps.dam2_2425_actividad1.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ProfileViewModel : ViewModel() {
     // MutableLiveData para almacenar la URL de la imagen de perfil
-    private val _profileImageUrl = MutableLiveData<String?>()
+    private val _urlImagenPerfil = MutableLiveData<String?>()
 
     // Exponer solo LiveData para evitar modificaciones externas
-    val profileImageUrl: LiveData<String?> get() = _profileImageUrl
+    val urlImagenPerfil: LiveData<String?> get() = _urlImagenPerfil
 
     // Método para establecer la URL de la imagen de perfil
-    fun setProfileImageUrl(url: String?) {
+    fun establecerUrlImagenPerfil(url: String?) {
         // Validar la URL antes de establecerla
         if (!url.isNullOrBlank()) {
-            _profileImageUrl.value = url
+            _urlImagenPerfil.value = url
+            Log.d("ProfileViewModel", "URL de la imagen de perfil establecida: $url")
         } else {
-            // Manejar el caso de URL no válida
-            _profileImageUrl.value = null // O puedes mantener el valor anterior
+            Log.d("ProfileViewModel", "URL no válida recibida, manteniendo el valor anterior: ${_urlImagenPerfil.value}")
         }
     }
+
 }

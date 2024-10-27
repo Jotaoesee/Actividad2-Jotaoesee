@@ -64,25 +64,16 @@ class FotoPerfilFragment : Fragment() {
         btnProfilesFotoPerfil = view.findViewById(R.id.btnProfilesFotoPerfil)
         btnCamara = view.findViewById(R.id.btnCamara)
         btnGaleria = view.findViewById(R.id.btnGaleria)
+        imageView = view.findViewById(R.id.imageView)
+
         imageView.setImageResource(R.drawable.hombremujer)
 
-        // Observa los cambios en la URL de la imagen de perfil
-        profileViewModel.profileImageUrl.observe(viewLifecycleOwner) { imageUrl ->
-            Log.d("FotoPerfilFragment", "Image URL updated: $imageUrl")
-            // Cargar la imagen en el ImageView
-            if (imageUrl != null) {
-                Picasso.get().load(imageUrl).into(imageView)
-            } else {
-                // Si no hay URL, puedes establecer la imagen por defecto
-                imageView.setImageResource(R.drawable.hombremujer)
-            }
-        }
+        cargarImagenPerfil()
 
         btnCerrarSesionFotoPerfil.setOnClickListener {
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
+            cerrarSesion()
         }
+
 
         btnProfilesFotoPerfil.setOnClickListener {
             findNavController().navigate(R.id.action_fotoPerfilFragment_to_profilesFragment)
@@ -103,6 +94,44 @@ class FotoPerfilFragment : Fragment() {
                 requestPermissions()
             }
         }
+    }
+
+    private fun cargarImagenPerfil() {
+        val userId = auth.currentUser?.uid ?: return
+        val userProfileDocRef = db.collection("users").document(userId)
+
+        // Obtener la URL de la imagen de perfil del Firestore
+        userProfileDocRef.get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val imageUrl = document.getString("imagenUrl")
+                    if (!imageUrl.isNullOrEmpty()) {
+                        // Si hay una imagen URL, cargarla
+                        Picasso.get().load(imageUrl).into(imageView)
+                    } else {
+                        // Si no hay URL, mostrar la imagen predeterminada
+                        imageView.setImageResource(R.drawable.hombremujer)
+                    }
+                } else {
+                    // Si no existe el documento del perfil, mostrar la imagen predeterminada
+                    imageView.setImageResource(R.drawable.hombremujer)
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("FotoPerfilFragment", "Error fetching profile image: ", e)
+                // En caso de error, mostrar la imagen predeterminada
+                imageView.setImageResource(R.drawable.hombremujer)
+            }
+    }
+
+    private fun cerrarSesion() {
+        // Cierra la sesión del usuario en Firebase
+        FirebaseAuth.getInstance().signOut()
+
+        // Navega a la actividad principal
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     // ActivityResultLauncher for capturing a picture from the camera
@@ -155,7 +184,7 @@ class FotoPerfilFragment : Fragment() {
             .addOnSuccessListener { taskSnapshot ->
                 taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
                     val downloadURL = uri.toString()
-                    profileViewModel.setProfileImageUrl(downloadURL)
+                    profileViewModel.establecerUrlImagenPerfil(downloadURL)
 
                     val profiles = db.collection("users")
                     val userProfileDocRef = profiles.document(userId)
@@ -196,12 +225,12 @@ class FotoPerfilFragment : Fragment() {
 
     // Function to open the camera
     private fun openCamera() {
-        takePictureLauncher.launch(null)
+        pickImageLauncher.launch("image/*")
     }
 
     // Function to open the gallery
     private fun openGallery() {
-        pickImageLauncher.launch("image/*")
+        takePictureLauncher.launch(null)
     }
 
     // Check for necessary permissions

@@ -12,25 +12,6 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <!-- NombreUsuario -->
-
-        <!-- ApellidosUsuario -->
-
-        <!-- Hobbies -->
-
-
-        <!-- Botón de editar -->
-        <ImageView
-            android:id="@+id/imagenSeleccionada"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="216dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <Button
             android:id="@+id/editarFoto"
             android:layout_width="wrap_content"
@@ -42,6 +23,16 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imagenSeleccionada" />
+
+        <ImageView
+            android:id="@+id/imagenSeleccionada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="248dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
