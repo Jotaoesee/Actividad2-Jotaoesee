@@ -89,6 +89,7 @@ class ProfilesFragment : Fragment() {
                     val profile = FbProfile(
                         uid = document.id,
                         nombre = document.getString("nombre") ?: "",
+                        edad = document.getLong("edad")?.toInt() ?: 0,
                         apellidos = document.getString("apellidos") ?: "",
                         hobbies = document.getString("hobbies") ?: "",
                         imagenUrl = document.getString("imagenUrl") // Asegúrate de que este campo existe en Firestore

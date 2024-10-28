@@ -16,7 +16,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
-            android:layout_marginTop="13dp"
             android:layout_marginEnd="98dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/border_edit_text"
@@ -31,7 +30,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/txApellidosPerfil"
@@ -59,9 +58,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
-            android:layout_marginTop="7dp"
             android:layout_marginEnd="98dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="73dp"
             android:background="@drawable/border_edit_text"
             android:ems="10"
             android:fontFamily="@font/simple_cake"
@@ -72,8 +70,29 @@
             android:textColorHint="@color/azul"
             app:layout_constraintBottom_toTopOf="@+id/btnGuardar"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txApellidosPerfil" />
+
+        <EditText
+            android:id="@+id/txEdad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="98dp"
+            android:background="@drawable/border_edit_text"
+            android:ems="10"
+            android:fontFamily="@font/simple_cake"
+            android:hint="@string/edad"
+            android:inputType="text"
+            android:minHeight="60dp"
+            android:padding="16dp"
+            android:textColorHint="@color/azul"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txHobbies" />
 
         <Button
             android:id="@+id/btnCerrarSesion"
@@ -94,12 +113,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="161dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="162dp"
             android:fontFamily="@font/simple_cake"
             android:text="@string/guardar"
             app:layout_constraintBottom_toTopOf="@+id/btnMostrar"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txHobbies" />
 
@@ -141,20 +161,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnMostrar" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="141dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="142dp"
-            android:layout_marginBottom="13dp"
-            app:layout_constraintBottom_toTopOf="@+id/txNombrePerfil"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

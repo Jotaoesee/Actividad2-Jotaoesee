@@ -23,6 +23,7 @@ class ProfileAdapter(private var profilesList: MutableList<FbProfile>) :
         val tvNombre: TextView = itemView.findViewById(R.id.tvNombre)
         val tvApellido: TextView = itemView.findViewById(R.id.tvApellido)
         val tvHobbies: TextView = itemView.findViewById(R.id.tvHobbie)
+        val tvEdad: TextView = itemView.findViewById(R.id.tvEdad)
         val imgPerfil: ImageView = itemView.findViewById(R.id.list_cell_ivAvatar)
     }
 
@@ -41,6 +42,8 @@ class ProfileAdapter(private var profilesList: MutableList<FbProfile>) :
         holder.tvNombre.text = profile.nombre ?: "Nombre no disponible"
         holder.tvApellido.text = profile.apellidos ?: "Apellido no disponible"
         holder.tvHobbies.text = profile.hobbies ?: "Hobbies no disponibles"
+        holder.tvEdad.text = profile.edad?.toString() ?: "Edad no disponible"
+
 
         // Cargar la URL de la imagen del perfil usando Picasso
         val imageUrl = profile.imagenUrl
@@ -73,4 +76,5 @@ class ProfileAdapter(private var profilesList: MutableList<FbProfile>) :
         profilesList.addAll(nuevaLista)
         notifyDataSetChanged()
     }
+
 }

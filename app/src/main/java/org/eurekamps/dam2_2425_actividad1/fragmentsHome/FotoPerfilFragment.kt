@@ -226,12 +226,13 @@ class FotoPerfilFragment : Fragment() {
 
     // Abre la cámara para capturar una foto
     private fun openCamera() {
-        takePictureLauncher.launch(null)
+        pickImageLauncher.launch("image/*")
     }
 
     // Abre la galería para seleccionar una imagen
     private fun openGallery() {
-        pickImageLauncher.launch("image/*")
+        takePictureLauncher.launch(null)
+
     }
 
     // Verifica si los permisos necesarios están concedidos

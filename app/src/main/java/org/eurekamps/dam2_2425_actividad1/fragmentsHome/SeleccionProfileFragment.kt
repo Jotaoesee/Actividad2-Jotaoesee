@@ -23,6 +23,7 @@ class SeleccionProfileFragment : Fragment() {
     lateinit var txNombreSeleccion: TextView
     lateinit var txApellidosSeleccion: TextView
     lateinit var txHobbiesSeleccion: TextView
+    lateinit var txEdadSeleccion: TextView
     private lateinit var imgSeleccionada: ImageView
     private lateinit var btnEditarFoto: Button
 
@@ -53,6 +54,7 @@ class SeleccionProfileFragment : Fragment() {
         txNombreSeleccion = view.findViewById(R.id.txNombreSeleccion)
         txApellidosSeleccion = view.findViewById(R.id.txApellidosSeleccion)
         txHobbiesSeleccion = view.findViewById(R.id.txHobbiesSeleccion)
+        txEdadSeleccion = view.findViewById(R.id.txEdadSeleccion)
         imgSeleccionada = view.findViewById(R.id.imagenSeleccionada)
         btnEditarFoto = view.findViewById(R.id.editarFoto)
 
@@ -96,6 +98,7 @@ class SeleccionProfileFragment : Fragment() {
                     txNombreSeleccion.text = document.getString("nombre") ?: "Nombre no disponible"
                     txApellidosSeleccion.text = document.getString("apellidos") ?: "Apellidos no disponibles"
                     txHobbiesSeleccion.text = document.getString("hobbies") ?: "Hobbies no disponibles"
+                    txEdadSeleccion.text = document.getLong("edad")?.toString() ?: "Edad no disponible"
 
                 } else {
                     // Si no existe el documento, establecer imágenes y textos predeterminados
@@ -103,6 +106,7 @@ class SeleccionProfileFragment : Fragment() {
                     txNombreSeleccion.text = "Nombre no disponible"
                     txApellidosSeleccion.text = "Apellidos no disponibles"
                     txHobbiesSeleccion.text = "Hobbies no disponibles"
+                    txEdadSeleccion.text = "Edad no disponible"
                 }
             }
             .addOnFailureListener { e ->
@@ -112,8 +116,10 @@ class SeleccionProfileFragment : Fragment() {
                 txNombreSeleccion.text = "Nombre no disponible"
                 txApellidosSeleccion.text = "Apellidos no disponibles"
                 txHobbiesSeleccion.text = "Hobbies no disponibles"
+                txEdadSeleccion.text = "Edad no disponible"
             }
     }
+
 
 
 

@@ -30,6 +30,7 @@ class PerfilFragment : Fragment() {
     lateinit var txNombre: EditText
     lateinit var txApellidos: EditText
     lateinit var txHobbies: EditText
+    lateinit var txEdad: EditText
     lateinit var btnCerrarSesion: Button
     lateinit var btnGuardar: Button
     lateinit var btnMostrar: Button
@@ -60,6 +61,7 @@ class PerfilFragment : Fragment() {
         txNombre = view.findViewById(R.id.txNombrePerfil)
         txApellidos = view.findViewById(R.id.txApellidosPerfil)
         txHobbies = view.findViewById(R.id.txHobbies)
+        txEdad = view.findViewById(R.id.txEdad)
         btnCerrarSesion = view.findViewById(R.id.btnCerrarSesion)
         btnGuardar = view.findViewById(R.id.btnGuardar)
         btnMostrar = view.findViewById(R.id.btnMostrar)
@@ -81,11 +83,16 @@ class PerfilFragment : Fragment() {
 
         // Listener para guardar perfil
         btnGuardar.setOnClickListener {
+            val edadTexto = txEdad.text.toString()
+            val edadInt = if (edadTexto.isNotBlank()) edadTexto.toIntOrNull() else null
             val perfilData = FbProfile(
                 nombre = txNombre.text.toString(),
                 apellidos = txApellidos.text.toString(),
                 hobbies = txHobbies.text.toString(),
+                edad = edadInt
             )
+
+
             perfilViewModel.guardarPerfil(perfilData) { success ->
                 if (success) {
                     Toast.makeText(requireContext(), "Perfil guardado con éxito", Toast.LENGTH_SHORT).show()
@@ -94,6 +101,9 @@ class PerfilFragment : Fragment() {
                 }
             }
         }
+
+
+
 
         // Listener para eliminar perfil
         btnEliminar.setOnClickListener {
@@ -104,6 +114,7 @@ class PerfilFragment : Fragment() {
                     txNombre.text.clear()
                     txApellidos.text.clear()
                     txHobbies.text.clear()
+                    txEdad.text.clear()
                 } else {
                     Toast.makeText(requireContext(), "Error al eliminar el perfil", Toast.LENGTH_SHORT).show()
                 }
@@ -121,6 +132,7 @@ class PerfilFragment : Fragment() {
                 txNombre.setText(it.nombre)
                 txApellidos.setText(it.apellidos)
                 txHobbies.setText(it.hobbies)
+                txEdad.setText(it.edad.toString())
             } ?: Toast.makeText(requireContext(), "No se encontró perfil.", Toast.LENGTH_SHORT).show()
         }
     }

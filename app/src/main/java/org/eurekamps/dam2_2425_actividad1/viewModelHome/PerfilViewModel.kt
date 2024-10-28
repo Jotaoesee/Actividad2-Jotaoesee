@@ -42,7 +42,13 @@ class PerfilViewModel : ViewModel() {
             db.collection("users").document(uid).get()
                 .addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
-                        val perfil = document.toObject(FbProfile::class.java)
+                        val edad = document.getLong("edad")?.toInt()
+                        val perfil = FbProfile(
+                            nombre = document.getString("nombre") ?: "",
+                            apellidos = document.getString("apellidos") ?: "",
+                            hobbies = document.getString("hobbies") ?: "",
+                            edad = edad
+                        )
                         _perfil.value = perfil
                     } else {
                         _perfil.value = null
@@ -51,10 +57,32 @@ class PerfilViewModel : ViewModel() {
                 .addOnFailureListener {
                     _perfil.value = null
                 }
-        } else {
-            _perfil.value = null
         }
     }
+
+
+
+
+    fun descargarPerfilesMayoresDe35(onComplete: (List<FbProfile>?) -> Unit) {
+        val usuariosMayores = mutableListOf<FbProfile>()
+
+        db.collection("users")
+            .whereGreaterThan("edad", 35) // Consulta para filtrar por edad
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val perfil = document.toObject(FbProfile::class.java) // Asegúrate de que esta conversión sea correcta
+                    usuariosMayores.add(perfil)
+                }
+                onComplete(usuariosMayores) // Devuelve la lista de perfiles
+            }
+            .addOnFailureListener { exception ->
+                Log.w("PerfilViewModel", "Error al recuperar perfiles", exception)
+                onComplete(null) // Devuelve null en caso de error
+            }
+    }
+
+
 
     fun descargarPerfil(uid: String) {
         db.collection("users").document(uid).get()

@@ -12,7 +12,17 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <!-- Botón justo debajo del ImageView -->
+        <TextView
+            android:id="@+id/txEdadSeleccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="164dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/simple_cake"
+            android:text="@string/edad"
+            android:textColor="@color/azul"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txHobbiesSeleccion" />
 
         <TextView
             android:id="@+id/txHobbiesSeleccion"
@@ -62,7 +72,7 @@
             android:fontFamily="@font/simple_cake"
             android:text="@string/editar_foto_seleccion"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txHobbiesSeleccion" />
+            app:layout_constraintTop_toBottomOf="@+id/txEdadSeleccion" />
 
         <TextView
             android:id="@+id/txNombreSeleccion"
