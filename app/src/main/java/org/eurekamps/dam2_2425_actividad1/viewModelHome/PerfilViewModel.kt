@@ -61,29 +61,6 @@ class PerfilViewModel : ViewModel() {
     }
 
 
-
-
-    fun descargarPerfilesMayoresDe35(onComplete: (List<FbProfile>?) -> Unit) {
-        val usuariosMayores = mutableListOf<FbProfile>()
-
-        db.collection("users")
-            .whereGreaterThan("edad", 35) // Consulta para filtrar por edad
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val perfil = document.toObject(FbProfile::class.java) // Asegúrate de que esta conversión sea correcta
-                    usuariosMayores.add(perfil)
-                }
-                onComplete(usuariosMayores) // Devuelve la lista de perfiles
-            }
-            .addOnFailureListener { exception ->
-                Log.w("PerfilViewModel", "Error al recuperar perfiles", exception)
-                onComplete(null) // Devuelve null en caso de error
-            }
-    }
-
-
-
     fun descargarPerfil(uid: String) {
         db.collection("users").document(uid).get()
             .addOnSuccessListener { document ->

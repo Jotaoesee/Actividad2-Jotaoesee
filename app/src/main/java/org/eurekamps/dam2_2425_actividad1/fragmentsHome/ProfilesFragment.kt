@@ -35,6 +35,10 @@ class ProfilesFragment : Fragment() {
     private lateinit var btnCerrarProfiles: Button
     // Botón para ir al perfil
     private lateinit var btnIrAPerfil: Button
+    // Botón para ver perfiles mayores de 35 años
+    private lateinit var btnPerfilesMayores35: Button
+    // Botón para ver todos los perfiles
+    private lateinit var btnTodosPerfiles: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,13 +58,15 @@ class ProfilesFragment : Fragment() {
         recyclerProfiles = view.findViewById(R.id.listaPerfiles)
         btnCerrarProfiles = view.findViewById(R.id.btnCerrarProfiles)
         btnIrAPerfil = view.findViewById(R.id.btnIrPerfil)
+        btnPerfilesMayores35 = view.findViewById(R.id.btnPerfilesMayores35)
+        btnTodosPerfiles = view.findViewById(R.id.btnTodosPerfiles)
         recyclerProfiles.layoutManager = LinearLayoutManager(requireContext())
 
         // Inicializar el adaptador del RecyclerView con la lista vacía de perfiles
         profilesAdapter = ProfileAdapter(profilesList)
         recyclerProfiles.adapter = profilesAdapter
 
-        // Llama a la función para recuperar y mostrar los perfiles de la base de datos
+        // Llama a la función para recuperar y mostrar todos los perfiles de la base de datos
         mostrarPerfiles()
 
         // Configurar el botón de cerrar sesión
@@ -75,16 +81,22 @@ class ProfilesFragment : Fragment() {
 
         btnIrAPerfil.setOnClickListener {
             findNavController().navigate(R.id.action_profilesFragment_to_perfilFragment)
+        }
 
+        btnPerfilesMayores35.setOnClickListener {
+            mostrarPerfilesMayoresDe35()
+        }
 
+        btnTodosPerfiles.setOnClickListener {
+            mostrarPerfiles()
         }
     }
 
-    // Función para recuperar los perfiles desde Firestore y actualizarlos en el RecyclerView
+    // Función para recuperar todos los perfiles desde Firestore y actualizarlos en el RecyclerView
     private fun mostrarPerfiles() {
         db.collection("users").get()
             .addOnSuccessListener { result ->
-                profilesList.clear()
+                profilesList.clear() // Limpia la lista antes de agregar nuevos perfiles
                 for (document in result) {
                     val profile = FbProfile(
                         uid = document.id,
@@ -92,11 +104,11 @@ class ProfilesFragment : Fragment() {
                         edad = document.getLong("edad")?.toInt() ?: 0,
                         apellidos = document.getString("apellidos") ?: "",
                         hobbies = document.getString("hobbies") ?: "",
-                        imagenUrl = document.getString("imagenUrl") // Asegúrate de que este campo existe en Firestore
+                        imagenUrl = document.getString("imagenUrl")
                     )
                     profilesList.add(profile)
                 }
-                profilesAdapter.notifyDataSetChanged()
+                profilesAdapter.notifyDataSetChanged() // Notifica al adaptador que los datos han cambiado
                 if (profilesList.isEmpty()) {
                     Toast.makeText(requireContext(), "No hay perfiles disponibles.", Toast.LENGTH_SHORT).show()
                 }
@@ -107,5 +119,32 @@ class ProfilesFragment : Fragment() {
             }
     }
 
-
+    // Función para recuperar perfiles mayores de 35 años desde Firestore
+    private fun mostrarPerfilesMayoresDe35() {
+        db.collection("users")
+            .whereGreaterThan("edad", 35) // Consulta para filtrar por edad
+            .get()
+            .addOnSuccessListener { result ->
+                profilesList.clear() // Limpia la lista antes de agregar nuevos perfiles
+                for (document in result) {
+                    val profile = FbProfile(
+                        uid = document.id,
+                        nombre = document.getString("nombre") ?: "",
+                        edad = document.getLong("edad")?.toInt() ?: 0,
+                        apellidos = document.getString("apellidos") ?: "",
+                        hobbies = document.getString("hobbies") ?: "",
+                        imagenUrl = document.getString("imagenUrl")
+                    )
+                    profilesList.add(profile)
+                }
+                profilesAdapter.notifyDataSetChanged()
+                if (profilesList.isEmpty()) {
+                    Toast.makeText(requireContext(), "No hay perfiles mayores de 35 años disponibles.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("ProfilesFragment", "Error fetching older profiles: ", e)
+                Toast.makeText(requireContext(), "Error al recuperar perfiles mayores de 35 años.", Toast.LENGTH_SHORT).show()
+            }
+    }
 }

@@ -37,7 +37,7 @@ class SeleccionProfileFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()// Inicializa Firestore
+        db = FirebaseFirestore.getInstance()
     }
 
     override fun onCreateView(

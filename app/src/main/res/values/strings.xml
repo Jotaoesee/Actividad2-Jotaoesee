@@ -39,4 +39,6 @@
     <string name="eliminar">Eliminar</string>
     <string name="mostrar">Mostrar</string>
     <string name="hobbies">Hobbies</string>
+    <string name="perfiles_mayores_de_35">Perfiles mayores de 35</string>
+    <string name="todos_los_perfiles">Todos los Perfiles</string>
 </resources>

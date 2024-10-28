@@ -25,13 +25,26 @@
             android:gravity="center"
             android:paddingBottom="16dp"/>
 
-        <!-- RecyclerView para mostrar la lista de perfiles -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listaPerfiles"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:scrollbars="vertical"/>
+
+        <Button
+            android:id="@+id/btnPerfilesMayores35"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/simple_cake"
+            android:text="@string/perfiles_mayores_de_35" />
+
+        <Button
+            android:id="@+id/btnTodosPerfiles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/simple_cake"
+            android:text="@string/todos_los_perfiles" />
 
         <Button
             android:id="@+id/btnIrPerfil"
@@ -46,7 +59,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/simple_cake"
             android:text="@string/cerrar_sesi_list_perfil" />
-
 
     </LinearLayout>
 
